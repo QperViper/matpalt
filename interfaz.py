@@ -85,7 +85,7 @@ class Interfaz (object):
         self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnPichangas = CTkButton(self.ventana,text='añadir al historail',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
+        self.btnPichangas = CTkButton(self.ventana,text='Abrir Historial',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
         self.btnColaciones = CTkButton(self.ventana,text='ELIMINAR PEDIDO',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.eliminar_pedido()).place(x=1100, y=500)
 
     
@@ -121,8 +121,8 @@ class Interfaz (object):
 
         self.btnoper7 = CTkButton(self.ventana, text='Lipiar Formulario', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
                               border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img9, command=lambda:self.Eliminar_todo_de_lista()).place(x=460, y=136)
-        self.btnoper13 = CTkButton(self.ventana, text='Subir producto', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14, command=lambda:self.subir_producto_web()).place(x=580, y=136)   
+        self.btnoper13 = CTkButton(self.ventana, text='Nuevo Producto', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+                              border_width=2, corner_radius=0, compound=ctk.TOP,image=self.img11, command=lambda:self.subir_producto_web()).place(x=580, y=136)   
         
         self.btnoper10 = CTkButton(self.ventana, text='Eliminar', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
                               border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img12,command=lambda:self.elim()).place(x=460, y=194)
@@ -134,44 +134,44 @@ class Interfaz (object):
         self.lista1.place(x=460,y=260)
         # self.lista1.insert(0, "")
         
+        
     #listo
     def mostrar_historial(self):
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        self.nombre_label = CTkLabel(self.ventana, text="Nombre de la fruta:")
-        self.nombre_label.pack()
+        self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Nombre de la fruta:", text_color="black")
+        self.nombre_label.place(x=10, y=10)
 
-        self.nombre_entry = CTkEntry(self.ventana)
-        self.nombre_entry.pack()
+        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.nombre_entry.place(x=10, y=50)
 
-        self.kilos_label = CTkLabel(self.ventana, text="Kilos:")
-        self.kilos_label.pack()
+        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="black")
+        self.kilos_label.place(x=10, y=90)
 
-        self.kilos_entry = CTkEntry(self.ventana)
-        self.kilos_entry.pack()
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.kilos_entry.place(x=10, y=130)
 
-        self.precio_label = CTkLabel(self.ventana, text="Precio:")
-        self.precio_label.pack()
+        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="black")
+        self.precio_label.place(x=10, y=170)
 
-        self.precio_entry = CTkEntry(self.ventana)
-        self.precio_entry.pack()
+        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.precio_entry.place(x=10, y=210)
 
-        self.btn_agregar = CTkButton(self.ventana, text='Agregar al historial', command=self.agregar_al_historial)
-        self.btn_agregar.place(x=10,y=10)
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Agregar al historial', command=self.agregar_al_historial, text_color="black")
+        self.btn_agregar.place(x=10,y=250)
     def agregar_al_historial(self):
         nombre = self.nombre_entry.get()
-        kilos = float(self.kilos_entry.get())
-        precio = float(self.precio_entry.get())
+        kilos = self.kilos_entry.get()
+        precio = self.precio_entry.get()
+        if nombre=="" or kilos=="" or precio =="":
+            self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
+        else:
+            self.historial_frutas.agregar_fruta(nombre, kilos, precio)
 
-        self.historial_frutas.agregar_fruta(nombre, kilos, precio)
-        self.mostrar_historial()
 
-    def mostrar_historial(self):
-        self.historial_frutas.mostrar_historial()
 
-    def ejecutar(self):
-        self.ventana.mainloop()
+
         
-        pass
+        
     def eliminar_pedido(self):
         id=CTkInputDialog(title='Eliminar producto', text='eliminar')
         id.geometry('300x200+800+400')
