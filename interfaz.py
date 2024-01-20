@@ -15,7 +15,7 @@ import customtkinter as ctk
 from PIL import ImageTk, Image
 from datetime import datetime
 
-
+import conexion
 
 
 class Interfaz (object):
@@ -23,7 +23,7 @@ class Interfaz (object):
 
     def __init__(self) -> None:
         self.ventana=ctk.CTk()
-        #self.datos = conexion.Registro_de_datos()
+        self.datos = conexion.Registro_de_datos()
         
         self.ventana.geometry("1240x720")
         self.grupo1 = ctk.CTkFrame(self.ventana, width= 440,height=600)
@@ -41,8 +41,8 @@ class Interfaz (object):
         altura_pantalla = self.ventana.winfo_screenheight()
         anchura_pantalla = self.ventana.winfo_screenwidth()
         #print(f"Altura: {altura}\nAnchura: {anchura}\nAltura de pantalla: {altura_pantalla}\nAnchura de pantalla: {anchura_pantalla}")
-        x = (anchura_pantalla // 5) - (anchura//4)
-        y = (altura_pantalla//5) - (altura//4)
+        x = (anchura_pantalla // 6) - (anchura//1)
+        y = (altura_pantalla//8) - (altura//3)
         self.ventana.geometry(f"+{x}+{y}")
         # self.ventana.iconbitmap("C:\\FO_OK\\ico.ico")
         self.ventana.title("MATPALT")
@@ -85,7 +85,7 @@ class Interfaz (object):
         self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnPichangas = CTkButton(self.ventana,text='Abrir Historial',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
+        self.btnPichangas = CTkButton(self.ventana,text='Introducir frutas',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
         self.btnColaciones = CTkButton(self.ventana,text='ELIMINAR PEDIDO',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.eliminar_pedido()).place(x=1100, y=500)
 
     
@@ -94,7 +94,7 @@ class Interfaz (object):
     def operaciones(self):
         
 
-        self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
+        # self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
         a=1
         self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
         self.img4 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\faa.png").resize((25,25)))
@@ -137,23 +137,23 @@ class Interfaz (object):
         
     #listo
     def mostrar_historial(self):
-        self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Nombre de la fruta:", text_color="black")
+
+        self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Fruta:", text_color="white")
         self.nombre_label.place(x=10, y=10)
 
-        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.nombre_entry.place(x=10, y=50)
 
-        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="black")
+        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
         self.kilos_label.place(x=10, y=90)
 
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.kilos_entry.place(x=10, y=130)
 
-        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="black")
+        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="white")
         self.precio_label.place(x=10, y=170)
 
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.precio_entry.place(x=10, y=210)
 
         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Agregar al historial', command=self.agregar_al_historial, text_color="black")
@@ -165,7 +165,8 @@ class Interfaz (object):
         if nombre=="" or kilos=="" or precio =="":
             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
         else:
-            self.historial_frutas.agregar_fruta(nombre, kilos, precio)
+            id=1
+            self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
 
 
 
@@ -507,43 +508,6 @@ class Interfaz (object):
     
 
 
-class HistorialFrutas:
 
-    def __init__(self, archivo_excel):
-        self.archivo_excel = archivo_excel
-        self.historial = self.cargar_historial()
-
-    def cargar_historial(self):
-        try:
-            workbook = load_workbook(self.archivo_excel)
-            sheet = workbook.active
-            historial = []
-
-            for row in sheet.iter_rows(min_row=2, values_only=True):
-                nombre, kilos, precio = row
-                historial.append({'nombre': nombre, 'kilos': kilos, 'precio': precio})
-
-            return historial
-        except FileNotFoundError:
-            return []
-
-    def guardar_historial(self):
-        workbook = Workbook()
-        sheet = workbook.active
-        sheet.append(['Nombre', 'Kilos', 'Precio'])
-
-        for fruta in self.historial:
-            sheet.append([fruta['nombre'], fruta['kilos'], fruta['precio']])
-
-        workbook.save(self.archivo_excel)
-
-    def agregar_fruta(self, nombre, kilos, precio):
-        nueva_fruta = {'nombre': nombre, 'kilos': kilos, 'precio': precio}
-        self.historial.append(nueva_fruta)
-        self.guardar_historial()
-
-    def mostrar_historial(self):
-        for fruta in self.historial:
-            print(f"Nombre: {fruta['nombre']}, Kilos: {fruta['kilos']}, Precio: {fruta['precio']}")
 
 f =Interfaz()
