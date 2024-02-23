@@ -1,4 +1,4 @@
-import mysql.connector
+#Pimport mysql.connector
 
 class Registro_de_datos():
     def __init__(self):
@@ -16,8 +16,8 @@ class Registro_de_datos():
     #     sql = "SELECT * FROM cajero WHERE rut = {}".format(nombres)
     #     cur.execute(sql)
     #     nomx = cur.fetchall()
-    #     cur.close()
-    #     return nomx
+        # cur.close()
+        # return nomx
     
     # def busca_password(self, contrasena):
     #     cur = self.conexion.cursor()
