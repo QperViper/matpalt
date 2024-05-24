@@ -1,0 +1,5 @@
+se necesita conocer los productos ingresados en el sistema (id,nombre, kilos,f-de-compra, precio-de-compra,id-tipo-de-producto),
+además se necesita saber que tipo de productos son ya que son categorizados sin el tipo de prodcuto no se puede poner en venta
+así si alguien decide compra un nuevo producto o fruta deberá crear el tipo (id, tipo-producto,nombre_producto) de las frutas que los datos son
+(id,precio-venta,kilos,idtipo-producto), ademas se quiere saber cuanta fruta se pierde en merma de la merma se necesita saber el 
+(id,nombre,precio-perdida,kilos-idtipo_producto)

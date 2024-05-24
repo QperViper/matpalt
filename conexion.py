@@ -1,4 +1,4 @@
-#Pimport mysql.connector
+import mysql.connector
 
 class Registro_de_datos():
     def __init__(self):
