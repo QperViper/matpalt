@@ -67,19 +67,6 @@ class Interfaz(object):
         
         # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
         # self.labelfoto = CTkLabel(self.ventana, text='', image = self.img2).place(x=950, y=20)
-<<<<<<< Updated upstream
-        self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
-        self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
-
-        self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
-
-        self.btnPapasfritas = CTkButton(self.ventana,text='BEBIDAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo4()).place(x=850, y=90)
-        self.btnPollo = CTkButton(self.ventana,text='COLACIONES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo5()).place(x=980, y=90)
-        self.btnPizza = CTkButton(self.ventana,text='POSTRES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo6()).place(x=1110, y=90)
-        self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
-        self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
-        # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-=======
         # self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
         # self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
         # self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
@@ -90,7 +77,6 @@ class Interfaz(object):
         # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
         self.btnPichangas = CTkButton(self.ventana,text='Abrir Historial',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
->>>>>>> Stashed changes
         self.btnPichangas = CTkButton(self.ventana,text='Introducir frutas',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
         self.btnColaciones = CTkButton(self.ventana,text='ELIMINAR PEDIDO',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.eliminar_pedido()).place(x=1100, y=500)
 
@@ -168,18 +154,14 @@ class Interfaz(object):
 
         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Agregar al historial', command=self.agregar_al_historial, text_color="black")
         self.btn_agregar.place(x=10,y=250)
-    def agregar_al_historial(self):
+    def agregar_al_historial(self,):
         nombre = self.nombre_entry.get()
         kilos = self.kilos_entry.get()
         precio = self.precio_entry.get()
         if nombre=="" or kilos=="" or precio =="":
             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
         else:
-            id=1
-            self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
 
-<<<<<<< Updated upstream
-=======
             try:
 
 
@@ -202,7 +184,6 @@ class Interfaz(object):
         self.historial_frutas.agregar_fruta(nombre, kilosint, precioint)
         self.msg2 = CTkMessagebox(self.ventana, title="Error", message="")
         print(kilosint,precioint)
->>>>>>> Stashed changes
 
 
 
@@ -522,9 +503,6 @@ class Interfaz(object):
 
 class HistorialFrutas:
 
-<<<<<<< Updated upstream
-f =Interfaz()
-=======
     def __init__(self, archivo_excel):
         self.archivo_excel = archivo_excel
         self.historial = self.cargar_historial()
@@ -563,4 +541,3 @@ f =Interfaz()
             print(f"Nombre: {fruta['nombre']}, Kilos: {fruta['kilos']}, Precio: {fruta['precio']}")
 
 Interfaz()
->>>>>>> Stashed changes
