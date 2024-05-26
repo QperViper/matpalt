@@ -10,7 +10,15 @@ class Registro_de_datos():
                                                 database='matpalt',
                                                 user='root',
                                                 password='1234')
-    #login
+        
+    def agregar_tipo(self,tipo,nombre):
+        cur = self.conexion.cursor()
+        sql = "INSERT INTO tipo_prod (tipo_producto, nombre_producto) VALUES (%s, %s)"
+        data = (tipo,nombre)
+        cur.execute(sql,data)
+        self.conexion.commit()
+        cur.close()
+        #login
     # def buscar_user(self, nombres):
     #     cur = self.conexion.cursor()
     #     sql = "SELECT * FROM cajero WHERE rut = {}".format(nombres)

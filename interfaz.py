@@ -78,7 +78,7 @@ class Interfaz(object):
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
         # self.btnPichangas = CTkButton(self.ventana,text='Agregar Fruta',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
         self.btnPichangas = CTkButton(self.ventana,text='Agregar Fruta',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=850, y=50)
-        self.btnColaciones = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1100, y=500)
+        self.btnColaciones = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=980, y=50)
 
 
     #listo
@@ -122,6 +122,10 @@ class Interfaz(object):
         self.lista1 = CTkListbox(self.ventana, height=400,width=335, fg_color="black")
         self.lista1.place(x=460,y=260)
         # self.lista1.insert(0, "")
+
+    # ========================================================
+    # borra los entrys
+    # ========================================================
     def borrar_widgets(self):
         self.nombre_label.destroy()
         self.nombre_entry.destroy()
@@ -135,12 +139,15 @@ class Interfaz(object):
         self.nom_entry.destroy()
         self.nom_label.destroy()
         
-        
+    # ========================================================
+    # agrega tipo Arreglar 
+    # ========================================================
     def agregar_tipo(self):
         try:
             self.borrar_widgets()
         except:
             print("error dado pero pasado")
+
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
 
@@ -152,8 +159,31 @@ class Interfaz(object):
 
         self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
         self.nom_entry.place(x=10, y=130)
-        pass
-    #listo
+
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="black")
+        self.btn_agregar.place(x=10, y=170) 
+    # ========================================================
+    # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
+    # ========================================================
+    def agregar_nuevo_tipo(self):
+        
+        tipo = self.tipo_entry.get()
+        nom = self.nom_entry.get()
+        if tipo=="" or nom =="":
+            self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
+        else:
+            try:
+                tipo = self.tipo_entry.get()
+                nom = self.nom_entry.get()
+            except (Exception):
+
+                self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
+
+        self.datos.agregar_tipo(tipo,nom)
+        print("entra")    
+    # ========================================================
+    # agrega una nueva fruta que compra el dueño a un archivo xlsx
+    # ========================================================
     def agregar_nueva_fruta(self):
         try:
             self.borrar_widgets()
@@ -161,66 +191,68 @@ class Interfaz(object):
             print("error dado pero pasado")
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
 
-        # self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Fruta:", text_color="black")
+        
+        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
+        self.kilos_label.place(x=10, y=90)
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.kilos_entry.place(x=10, y=130)
+
+
         self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Fruta:", text_color="white")
         self.nombre_label.place(x=10, y=10)
 
         self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.nombre_entry.place(x=10, y=50)
 
-        # self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="black")
-        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
-        self.kilos_label.place(x=10, y=90)
 
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-        self.kilos_entry.place(x=10, y=130)
-
-        # self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="black")
         self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="white")
         self.precio_label.place(x=10, y=170)
 
         self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.precio_entry.place(x=10, y=210)
+        
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_al_historial, text_color="black")
+#         create table producto(
+# id int not null,
+# kilos int not null,
+# f_compra date not null,
+# id_prod int not null,
+# primary key (id),
+# foreign key (id_prod) references tipo_prod(id) on update cascade on delete cascade);
+
+
+
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="black")
         self.btn_agregar.place(x=10,y=250)
-    def agregar_al_historial(self,):
+    # ========================================================
+    # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
+    # ========================================================
+    def agregar_gamela_frutas(self,):
         nombre = self.nombre_entry.get()
         kilos = self.kilos_entry.get()
         precio = self.precio_entry.get()
         if nombre=="" or kilos=="" or precio =="":
             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
         else:
-
             try:
-
-
                 # self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
-
-
-
                 nombre = self.nombre_entry.get()
                 kilos = self.kilos_entry.get()
                 precio = self.precio_entry.get()
-            
                 kilosint= int(kilos)
                 precioint = int(precio)
             except (Exception):
-
                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
                 print(kilosint,precioint)
 
-        
         self.historial_frutas.agregar_fruta(nombre, kilosint, precioint)
-        self.msg2 = CTkMessagebox(self.ventana, title="Error", message="")
-        print(kilosint,precioint)
+        self.msg2 = CTkMessagebox(self.ventana, title="ok", message="ingresado")
+    # ========================================================
+    # ========================================================
+
+  
 
 
-
-        
         
     def eliminar_pedido(self):
         id=CTkInputDialog(title='Eliminar producto', text='eliminar')
