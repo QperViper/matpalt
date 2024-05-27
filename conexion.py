@@ -18,6 +18,40 @@ class Registro_de_datos():
         cur.execute(sql,data)
         self.conexion.commit()
         cur.close()
+
+    def mostrar_tipo_prod(self):
+        cur = self.conexion.cursor()
+        sql = "SELECT * FROM tipo_prod"
+        cur.execute(sql)
+        dato = cur.fetchall()
+        cur.close()
+        return dato
+    
+    def nombre_tipo(self):
+        cur = self.conexion.cursor()
+        sql = "SELECT nombre_producto FROM tipo_prod"
+        cur.execute(sql)
+        nomx = cur.fetchall()
+        cur.close()
+        return nomx
+
+
+    def agregar_gamela_de_compra(self,kilos,fecha,precio,nombre_prod):
+        cur = self.conexion.cursor()
+        sql = "INSERT INTO producto (kilos,f_compra,precio_compra,id_prod) VALUES (%s, %s, %s, %s)"
+        data = (kilos,fecha,precio,nombre_prod)
+        cur.execute(sql,data)
+        self.conexion.commit()
+        cur.close()
+
+    def mostrar_gamela(self):
+        cur = self.conexion.cursor()
+        sql = "SELECT * FROM producto"
+        cur.execute(sql)
+        dato = cur.fetchall()
+        cur.close()
+        return dato
+
         #login
     # def buscar_user(self, nombres):
     #     cur = self.conexion.cursor()
