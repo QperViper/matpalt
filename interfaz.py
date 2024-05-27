@@ -266,15 +266,27 @@ class Interfaz(object):
     # ========================================================
     def mostrar_gamelas(self):
         consultasql = self.datos.mostrar_gamela()
+        consultasql1 = self.datos.mostrar_tipo_prod()
         d = [item[0] for item in consultasql]
         d1 = [item[1] for item in consultasql]
         d2 = [item[2] for item in consultasql]
         d3 = [item[3] for item in consultasql]
         d4 = [item[4] for item in consultasql]
+
+        d5= [item[0] for item in consultasql1]
+        for i in range(len(d5)):
+            d4 = [item[4] for item in consultasql]
+
+            d5= [item[0] for item in consultasql1]
+            if d5 == d4:
+                print("igual")
+        d6= [item[2] for item in consultasql1]
+
         
         for i in range(len(d)):
+
             # datoc= [datos[i],datos2[i]]
-            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {d4[i]}")
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {d6[i]}")
   
 
 
