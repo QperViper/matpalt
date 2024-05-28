@@ -27,9 +27,9 @@ class Registro_de_datos():
         cur.close()
         return dato
     
-    def nombre_tipo(self):
+    def id_nombre_tipo(self):
         cur = self.conexion.cursor()
-        sql = "SELECT nombre_producto FROM tipo_prod"
+        sql = "SELECT id,nombre_producto FROM tipo_prod"
         cur.execute(sql)
         nomx = cur.fetchall()
         cur.close()

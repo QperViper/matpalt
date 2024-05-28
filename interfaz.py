@@ -52,6 +52,7 @@ class Interfaz(object):
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
         self.cont =0
+        self.count =0
         self.items2 = []
         self.lista3 = []
         
@@ -209,7 +210,7 @@ class Interfaz(object):
         except:
             print("error dado pero pasado")
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        consultasql = self.datos.nombre_tipo()
+        consultasql = self.datos.id_nombre_tipo()
         
         self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
         self.kilos_label.place(x=10, y=90)
@@ -221,10 +222,28 @@ class Interfaz(object):
         self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
         self.precio_entry.place(x=10, y=210)
         
-        result = [item[0] for item in consultasql]
+        result = [item[1] for item in consultasql]
         datos=result
         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
         self.combo.place(x=10, y=10)
+        # self.count=0
+        # for i in range(len(result[1])):
+        #     print("entra")
+        #     for i in result:
+        #         if self.combo.get() == i:
+        #             print(i)
+        #             self.count += 1
+        #             print(self.count)   
+        #             break
+        #     else:
+        #         continue  
+        #     break 
+
+                
+
+  
+
+        
 
 
         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="black")
@@ -240,6 +259,7 @@ class Interfaz(object):
             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
         else:
             try:
+                
                 # self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
                 comboint = self.combo.get()
                 kilos = self.kilos_entry.get()
@@ -250,16 +270,32 @@ class Interfaz(object):
                 now = datetime.now()
                 # date = self.fecha_hoy.date()
                 # fecha_como_cadena = self.fecha_hoy.strftime("%Y-%m-%d")
-                print(comboint)
+ 
                 # print(fecha_como_cadena)
                 
         # print(now)
             except (Exception):
                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
                 print(kilosint,precioint)
-        self.datos.agregar_gamela_de_compra(kilosint, fecha_hoy, precioint,1)
+            consultasql = self.datos.id_nombre_tipo()
+            result = [item[1] for item in consultasql]
+            print(comboint)
+                
+            for i in range(len(result[1])):
+                print("entra")
+                for i in result:
+                    if self.combo.get() == i:
+                        print(i)
+                        self.count += 1
+                        print(self.count)
+                        break
+                else:
+                    continue  
+                break 
+        self.datos.agregar_gamela_de_compra(kilosint, fecha_hoy, precioint,self.count)
         self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")
         self.agregar_nueva_fruta()
+        self.count =0
         # self.historial_frutas.agregar_fruta(kilosint, fecha_hoy, precioint,1)
         # self.msg2 = CTkMessagebox(self.ventana, title="ok", message="ingresado")
     # ========================================================
@@ -273,20 +309,13 @@ class Interfaz(object):
         d3 = [item[3] for item in consultasql]
         d4 = [item[4] for item in consultasql]
 
-        d5= [item[0] for item in consultasql1]
-        for i in range(len(d5)):
-            d4 = [item[4] for item in consultasql]
 
-            d5= [item[0] for item in consultasql1]
-            if d5 == d4:
-                print("igual")
-        d6= [item[2] for item in consultasql1]
 
-        
-        for i in range(len(d)):
+        for i in range(0, 51):
+        # for i in range(len(d)):
 
             # datoc= [datos[i],datos2[i]]
-            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {d6[i]}")
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {d4[i]}")
   
 
 
