@@ -34,6 +34,21 @@ class Registro_de_datos():
         nomx = cur.fetchall()
         cur.close()
         return nomx
+    
+    def id_tipo(self,id):
+        cur = self.conexion.cursor()
+        sql = "SELECT nombre_producto FROM tipo_prod WHERE id = %s"
+        cur.execute(sql)
+        nomx = cur.fetchall()
+        cur.close()
+        return nomx
+    
+        cur = self.conexion.cursor()
+        sql = "DELETE FROM hitorial WHERE id = %s"
+        data = (contador)
+        cur.execute(sql, data)
+        self.conexion.commit()
+        cur.close()
 
 
     def agregar_gamela_de_compra(self,kilos,fecha,precio,nombre_prod):
