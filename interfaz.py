@@ -80,10 +80,10 @@ class Interfaz(object):
         # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=850, y=50)
-        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=850, y=90)
-        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=980, y=50)
-        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=980, y=90)
+        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
+        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
+        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
+        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
 
 
     #listo
@@ -124,7 +124,7 @@ class Interfaz(object):
         # self.btnoper12 = CTkButton(self.ventana, text='Subir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
         #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14).place(x=580, y=194)
         
-        self.lista1 = CTkListbox(self.ventana, height=400,width=335, fg_color="black", bg_color="green")
+        self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green")
         self.lista1.place(x=460,y=50)
         # self.lista1.insert(0, "")
 
@@ -260,7 +260,6 @@ class Interfaz(object):
         else:
             try:
                 
-                # self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
                 comboint = self.combo.get()
                 kilos = self.kilos_entry.get()
                 precio = self.precio_entry.get()
@@ -268,12 +267,7 @@ class Interfaz(object):
                 precioint = int(precio)
                 fecha_hoy = date.today()
                 now = datetime.now()
-                # date = self.fecha_hoy.date()
-                # fecha_como_cadena = self.fecha_hoy.strftime("%Y-%m-%d")
- 
-                # print(fecha_como_cadena)
-                
-        # print(now)
+
             except (Exception):
                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
                 print(kilosint,precioint)
@@ -310,10 +304,19 @@ class Interfaz(object):
 
 
         for i in range(0, 51):
-        # for i in range(len(d)):
+        
+            try:
+                d5=int(d4[i])
+                nom=self.datos.nombre_tipo(d5)
+            except (Exception):
+                print("error pasado")
 
+            formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
+            print(formatted_output)
+
+            
             # datoc= [datos[i],datos2[i]]
-            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {d4[i]}")
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
   
 
 
