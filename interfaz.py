@@ -7,14 +7,11 @@ from CTkMessagebox import CTkMessagebox
 from openpyxl.workbook import Workbook
 from customtkinter import *
 from CTkListbox import *
-from customtkinter import  CTkButton, CTkEntry, CTkImage, CTkLabel
+from customtkinter import  CTkButton, CTkEntry, CTkLabel
 import customtkinter as ctk
-from PIL import ImageTk, Image
 from datetime import datetime
 from datetime import date
-from datetime import datetime
-
-
+from tkcalendar import Calendar
 
 import conexion
 
@@ -105,7 +102,7 @@ class Interfaz(object):
         # self.img12 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\el.png").resize((25,25)))
         # self.img13 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl1.png").resize((25,25)))
         # self.img14 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl2.png").resize((25,25)))
-        # self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black"
+        # self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="white",fg_color="white", hover_color="gray90", text_color="black"
         #                       ,border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img3, command=lambda:self.cerrar()).place(x=460, y=20)
         # self.btnoper11 = CTkButton(self.ventana, text='imprimir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
         #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img13, command=lambda:self.ingreso(a)).place(x=580, y=20)
@@ -214,18 +211,18 @@ class Interfaz(object):
         
         self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
         self.kilos_label.place(x=10, y=90)
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.kilos_entry.place(x=10, y=130)
 
         self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio", text_color="white")
         self.precio_label.place(x=10, y=170)
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.precio_entry.place(x=10, y=210)
         
         result = [item[1] for item in consultasql]
         datos=result
         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
-        self.combo.place(x=10, y=10)
+        self.combo.place(x=10, y=50)
         # self.count=0
         # for i in range(len(result[1])):
         #     print("entra")
@@ -246,7 +243,7 @@ class Interfaz(object):
         
 
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="black")
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
         self.btn_agregar.place(x=10,y=250)
     # ========================================================
     # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
@@ -301,7 +298,7 @@ class Interfaz(object):
         d3 = [item[3] for item in consultasql]
         d4 = [item[4] for item in consultasql]
 
-
+        self.mostrar_gamelas_por_fecha()
 
         for i in range(0, 51):
         
@@ -317,7 +314,32 @@ class Interfaz(object):
             
             # datoc= [datos[i],datos2[i]]
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
-  
+
+        
+
+    def mostrar_gamelas_por_fecha(self):
+
+        self.filtro_fecha = Calendar(self.ventana)
+        self.filtro_fecha.place(x=180,y=50)
+
+        btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
+        btn_filtrar.place(x=180,y=250)
+
+    def filtro(self):
+        s=self.filtro_fecha.get_date()
+        fecha_modificada = s.replace("/", "-")
+        print(self.filtro_fecha.get_date())
+        print(fecha_modificada)
+        ################################################## ARREGLAR
+        # def mostrar_fecha(self):
+        # fecha_seleccionada = self.filtro_fecha.get_date()
+        # # Convertir la fecha a objeto datetime
+        # fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
+        # # Formatear la fecha en 'YYYY-MM-DD'
+        # fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
+        # print("Fecha seleccionada:", fecha_formateada)
+
+        
 
 
         

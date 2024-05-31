@@ -34,8 +34,6 @@ class Registro_de_datos():
         nomx = cur.fetchall()
         cur.close()
         return nomx
-
-
     
     def nombre_tipo(self,id):
         cur = self.conexion.cursor()
@@ -45,7 +43,6 @@ class Registro_de_datos():
         cur.close()
         return id_traer
     
-
 
 
     def agregar_gamela_de_compra(self,kilos,fecha,precio,nombre_prod):
@@ -63,6 +60,15 @@ class Registro_de_datos():
         dato = cur.fetchall()
         cur.close()
         return dato
+    
+    def mostrar_gamela_por_fecha(self, f_compra):
+        cur = self.conexion.cursor()
+        sql = "SELECT * FROM f_compra = {}".format(f_compra)
+        cur.execute(sql)
+        filtro_fecha = cur.fetchall()
+        cur.close()
+        return filtro_fecha 
+
 
         #login
     # def buscar_user(self, nombres):
