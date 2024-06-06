@@ -63,11 +63,15 @@ class Registro_de_datos():
     
     def mostrar_gamela_por_fecha(self, f_compra):
         cur = self.conexion.cursor()
-        sql = "SELECT * FROM f_compra = {}".format(f_compra)
-        cur.execute(sql)
+        sql = "SELECT * FROM producto WHERE f_compra = %s"
+        cur.execute(sql, (f_compra,))
         filtro_fecha = cur.fetchall()
         cur.close()
-        return filtro_fecha 
+        filtro_fecha_formateado = [
+            (id, cantidad, fecha.strftime('%Y-%m-%d'), precio, otro) for id, cantidad, fecha, precio, otro in filtro_fecha
+        ]
+    
+        return filtro_fecha_formateado
 
 
         #login

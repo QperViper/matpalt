@@ -297,7 +297,11 @@ class Interfaz(object):
         d2 = [item[2] for item in consultasql]
         d3 = [item[3] for item in consultasql]
         d4 = [item[4] for item in consultasql]
-
+        try:
+            self.filtro_fecha.destroy()
+        except:
+            print("error pasado")
+            
         self.mostrar_gamelas_por_fecha()
 
         for i in range(0, 51):
@@ -324,22 +328,46 @@ class Interfaz(object):
 
         btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
         btn_filtrar.place(x=180,y=250)
-
-    def filtro(self):
-        s=self.filtro_fecha.get_date()
-        fecha_modificada = s.replace("/", "-")
-        print(self.filtro_fecha.get_date())
-        print(fecha_modificada)
-        ################################################## ARREGLAR
-        # def mostrar_fecha(self):
-        # fecha_seleccionada = self.filtro_fecha.get_date()
-        # # Convertir la fecha a objeto datetime
-        # fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
-        # # Formatear la fecha en 'YYYY-MM-DD'
-        # fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
-        # print("Fecha seleccionada:", fecha_formateada)
-
         
+
+    # def filtro(self):
+    #     s=self.filtro_fecha.get_date()
+    #     fecha_modificada = s.replace("/", "-")
+    #     print(self.filtro_fecha.get_date())
+    #     print(fecha_modificada)
+        ################################################## ARREGLAR
+    def filtro(self):
+        fecha_seleccionada = self.filtro_fecha.get_date()
+        # Convertir la fecha a objeto datetime
+        fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
+        # Formatear la fecha en 'YYYY-MM-DD'
+        fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
+        print(fecha_formateada)
+        consultasql = self.datos.mostrar_gamela_por_fecha(fecha_formateada)
+        
+        self.lista1.delete(0, tk.END)
+
+        d = [item[0] for item in consultasql]
+        d1 = [item[1] for item in consultasql]
+        d2 = [item[2] for item in consultasql]
+        d3 = [item[3] for item in consultasql]
+        d4 = [item[4] for item in consultasql]
+################################################## ARREGLAR poner un count para que vaya hasta un punto especifico 
+        for i in range(0, 51):
+        
+            try:
+                
+                d5=int(d4[i])
+                nom=self.datos.nombre_tipo(d5)
+            except (Exception):
+                print("error pasado")
+
+            formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
+            print(formatted_output)
+
+            
+            # datoc= [datos[i],datos2[i]]
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")      
 
 
         
