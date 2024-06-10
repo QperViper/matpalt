@@ -21,7 +21,6 @@ class Interfaz(object):
 
     def __init__(self) -> None:
         self.ventana=ctk.CTk()
-        #self.datos = conexion.Registro_de_datos()
         self.datos = conexion.Registro_de_datos()
 
         self.ventana.geometry("1240x620")
@@ -48,6 +47,8 @@ class Interfaz(object):
         # self.ventana.iconbitmap("C:\\FO_OK\\ico.ico")
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         self.cont =0
         self.count =0
         self.items2 = []
@@ -64,6 +65,11 @@ class Interfaz(object):
         self.opciones()
         self.ventana.mainloop()
     #listo
+    def on_closing(self):
+        # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
+        print("La ventana se está cerrando.")
+        if messagebox.askokcancel("Salir", "quieres salir?"):
+            self.ventana.destroy()
     def opciones(self):
         
         # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
@@ -89,7 +95,6 @@ class Interfaz(object):
 
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
         # self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        a=1
         # self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
         # self.img4 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\faa.png").resize((25,25)))
         # self.img5 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\nota.png").resize((25,25)))
@@ -121,12 +126,13 @@ class Interfaz(object):
         # self.btnoper12 = CTkButton(self.ventana, text='Subir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
         #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14).place(x=580, y=194)
         
-        self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green")
+        self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
+
         # self.lista1.insert(0, "")
 
     # ========================================================
-    # borra los entrys
+    # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
     # ========================================================
     def borrar_widgets(self):
         self.combo.destroy()
@@ -139,15 +145,29 @@ class Interfaz(object):
         self.tipo_label.destroy()
         self.nom_entry.destroy()
         self.nom_label.destroy()
+    def borrar_filtro(self):
+        self.lista1.delete(0, tk.END)
+        self.filtro_fecha.destroy()
+        self.btn_filtrar.destroy()
+
+        
         
     # ========================================================
     # agrega tipo Arreglar 
     # ========================================================
     def agregar_tipo(self):
+
         try:
             self.borrar_widgets()
+            
         except:
             print("error dado pero pasado")
+        try:
+            self.borrar_filtro()
+            
+        except:
+            print("error dado pero pasado")
+
 
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
@@ -167,6 +187,8 @@ class Interfaz(object):
     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
     # ========================================================
     def agregar_nuevo_tipo(self):
+
+        
         
         tipo = self.tipo_entry.get()
         nom = self.nom_entry.get()
@@ -191,7 +213,12 @@ class Interfaz(object):
         result = [item[0] for item in consultasql]
         datos = [item[1] for item in consultasql]
         datos2 = [item[2] for item in consultasql]
-
+        try:
+            self.lista1.delete(0, tk.END)
+            self.filtro_fecha.destroy()
+            self.btn_filtrar.destroy()
+        except:
+            print("error pasado")
         for i in range(len(result)):
             # datoc= [datos[i],datos2[i]]
             self.lista1.insert(result[i], f"{datos[i]}, ({datos2[i]})")
@@ -204,8 +231,15 @@ class Interfaz(object):
     def agregar_nueva_fruta(self):
         try:
             self.borrar_widgets()
+            
         except:
             print("error dado pero pasado")
+        try:
+            self.borrar_filtro()
+            
+        except:
+            print("error dado pero pasado")
+            
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
         consultasql = self.datos.id_nombre_tipo()
         
@@ -223,26 +257,6 @@ class Interfaz(object):
         datos=result
         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
         self.combo.place(x=10, y=50)
-        # self.count=0
-        # for i in range(len(result[1])):
-        #     print("entra")
-        #     for i in result:
-        #         if self.combo.get() == i:
-        #             print(i)
-        #             self.count += 1
-        #             print(self.count)   
-        #             break
-        #     else:
-        #         continue  
-        #     break 
-
-                
-
-  
-
-        
-
-
         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
         self.btn_agregar.place(x=10,y=250)
     # ========================================================
@@ -299,6 +313,7 @@ class Interfaz(object):
         d4 = [item[4] for item in consultasql]
         try:
             self.filtro_fecha.destroy()
+            self.btn_filtrar.destroy()
         except:
             print("error pasado")
             
@@ -319,69 +334,60 @@ class Interfaz(object):
             # datoc= [datos[i],datos2[i]]
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
 
-        
-
     def mostrar_gamelas_por_fecha(self):
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
 
         self.filtro_fecha = Calendar(self.ventana)
         self.filtro_fecha.place(x=180,y=50)
 
-        btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
-        btn_filtrar.place(x=180,y=250)
+        self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
+        self.btn_filtrar.place(x=180,y=250)
         
-
-    # def filtro(self):
-    #     s=self.filtro_fecha.get_date()
-    #     fecha_modificada = s.replace("/", "-")
-    #     print(self.filtro_fecha.get_date())
-    #     print(fecha_modificada)
-        ################################################## ARREGLAR
     def filtro(self):
         fecha_seleccionada = self.filtro_fecha.get_date()
         # Convertir la fecha a objeto datetime
         fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
         # Formatear la fecha en 'YYYY-MM-DD'
         fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
-        print(fecha_formateada)
+        # print(fecha_formateada)
         consultasql = self.datos.mostrar_gamela_por_fecha(fecha_formateada)
-        
+        consultasql1 = self.datos.id_producto(fecha_formateada)
         self.lista1.delete(0, tk.END)
+        count = [item[0] for item in consultasql1]
+        
+        s= count[0]  # toma el valor son parentesis ni corchete
 
         d = [item[0] for item in consultasql]
         d1 = [item[1] for item in consultasql]
         d2 = [item[2] for item in consultasql]
         d3 = [item[3] for item in consultasql]
         d4 = [item[4] for item in consultasql]
-################################################## ARREGLAR poner un count para que vaya hasta un punto especifico 
-        for i in range(0, 51):
-        
+        for i in range(0, s):
             try:
-                
                 d5=int(d4[i])
                 nom=self.datos.nombre_tipo(d5)
             except (Exception):
                 print("error pasado")
-
             formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
             print(formatted_output)
-
-            
-            # datoc= [datos[i],datos2[i]]
-            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")      
-
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
+        
 
         
-    def eliminar_pedido(self):
-        id=CTkInputDialog(title='Eliminar producto', text='eliminar')
-        id.geometry('300x200+800+400')
-        dato=(int(id.get_input()))
-        print(dato)
-        contador_a_eliminar = [dato]  # Reemplaza con el contador del producto que deseas eliminar
-        self.datos.eliminar_producto_por_contador(contador_a_eliminar)
-        CTkMessagebox(title='MENSAJE', message=f'pedido {contador_a_eliminar} eliminado')
-    #listo
+    # def eliminar_pedido(self):
+    #     id=CTkInputDialog(title='Eliminar producto', text='eliminar')
+    #     id.geometry('300x200+800+400')
+    #     dato=(int(id.get_input()))
+    #     print(dato)
+    #     contador_a_eliminar = [dato]  # Reemplaza con el contador del producto que deseas eliminar
+    #     self.datos.eliminar_producto_por_contador(contador_a_eliminar)
+    #     CTkMessagebox(title='MENSAJE', message=f'pedido {contador_a_eliminar} eliminado')
+    # #listo
     def cerrar(self):
-        
         if messagebox.askokcancel("Salir", "quieres salir?"):
             self.ventana.destroy()
         

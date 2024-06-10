@@ -42,6 +42,13 @@ class Registro_de_datos():
         id_traer = cur.fetchall()
         cur.close()
         return id_traer
+    def id_producto(self, f_compra):
+        cur = self.conexion.cursor()
+        sql = "SELECT count(id) FROM producto WHERE f_compra = %s"
+        cur.execute(sql, (f_compra,))
+        id_traer = cur.fetchall()
+        cur.close()
+        return id_traer
     
 
 
