@@ -68,7 +68,7 @@ class Interfaz(object):
     def on_closing(self):
         # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
         print("La ventana se está cerrando.")
-        if messagebox.askokcancel("Salir", "quieres salir?"):
+        if messagebox.askokcancel("Salir", "Desea salir?"):
             self.ventana.destroy()
     def opciones(self):
         
