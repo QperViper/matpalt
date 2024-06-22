@@ -83,10 +83,10 @@ class Interfaz(object):
         # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
-        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
-        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
-        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
+        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
+        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
+        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
+        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',hover_color="black",bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
 
 
     #listo
@@ -135,21 +135,23 @@ class Interfaz(object):
     # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
     # ========================================================
     def borrar_widgets(self):
+        self.btn_agregar2.destroy()
         self.combo.destroy()
         self.kilos_label.destroy()
         self.kilos_entry.destroy()
         self.precio_label.destroy()
         self.precio_entry.destroy()
+        
+    def borrar_filtro(self):
+        self.lista1.delete(0, tk.END)
+        self.filtro_fecha.destroy()
+        self.btn_filtrar.destroy()
+    def borrar_widgets2(self):
         self.btn_agregar.destroy()
         self.tipo_entry.destroy()
         self.tipo_label.destroy()
         self.nom_entry.destroy()
         self.nom_label.destroy()
-    def borrar_filtro(self):
-        self.lista1.delete(0, tk.END)
-        self.filtro_fecha.destroy()
-        self.btn_filtrar.destroy()
-
         
         
     # ========================================================
@@ -167,6 +169,11 @@ class Interfaz(object):
             
         except:
             print("error dado pero pasado")
+        try:
+            self.borrar_widgets2()
+            
+        except:
+            print("error dado pero pasado")
 
 
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
@@ -181,7 +188,7 @@ class Interfaz(object):
         self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
         self.nom_entry.place(x=10, y=130)
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="black")
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
         self.btn_agregar.place(x=10, y=170) 
     # ========================================================
     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
@@ -239,6 +246,11 @@ class Interfaz(object):
             
         except:
             print("error dado pero pasado")
+        try:
+            self.borrar_widgets2()
+            
+        except:
+            print("error dado pero pasado")
             
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
         consultasql = self.datos.id_nombre_tipo()
@@ -257,8 +269,8 @@ class Interfaz(object):
         datos=result
         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
         self.combo.place(x=10, y=50)
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
-        self.btn_agregar.place(x=10,y=250)
+        self.btn_agregar2 = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
+        self.btn_agregar2.place(x=10,y=250)
     # ========================================================
     # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
     # ========================================================
@@ -341,7 +353,10 @@ class Interfaz(object):
         except:
             print("error dado pero pasado")
 
-        self.filtro_fecha = Calendar(self.ventana)
+        # self.filtro_fecha = Calendar(self.ventana)
+        # self.filtro_fecha.place(x=180,y=50)
+
+        self.filtro_fecha = Calendar(self.ventana, locale='es_ES')
         self.filtro_fecha.place(x=180,y=50)
 
         self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
