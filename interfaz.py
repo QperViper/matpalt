@@ -58,9 +58,6 @@ class Interfaz(object):
         
         self.fecha_hoy = datetime.now()
         self.product_list=[]
-        self.btns = {}
-        self.datos1 = []
-        self.contadores()
         self.operaciones()
         self.opciones()
         self.ventana.mainloop()
@@ -72,59 +69,19 @@ class Interfaz(object):
             self.ventana.destroy()
     def opciones(self):
         
-        # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
-        # self.labelfoto = CTkLabel(self.ventana, text='', image = self.img2).place(x=950, y=20)
-        # self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
-        # self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
-        # self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
-        # self.btnPapasfritas = CTkButton(self.ventana,text='BEBIDAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo4()).place(x=850, y=90)
-        # self.btnPollo = CTkButton(self.ventana,text='COLACIONES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo5()).place(x=980, y=90)
-        # self.btnPizza = CTkButton(self.ventana,text='POSTRES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo6()).place(x=1110, y=90)
-        # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
-        # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
-        # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
-        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
-        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
-        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',hover_color="black",bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
-
+        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B",command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
+        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B",command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
+        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B",command=lambda:self.agregar_tipo()).place(x=1110, y=50)
+        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',hover_color="#B8860B",bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
+        self.btn_venta = CTkButton(self.ventana,text='Ingresar Venta',width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B",command=lambda:self.ingresar_venta()).place(x=1110, y=130)
+        
 
     #listo
     def operaciones(self):
 
 
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        # self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        # self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
-        # self.img4 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\faa.png").resize((25,25)))
-        # self.img5 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\nota.png").resize((25,25)))
-        # self.img6 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\x.png").resize((25,25)))
-        # self.img7 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\p.png").resize((25,25)))
-        # self.img8 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\r.png").resize((25,25)))
-        # self.img9 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\limpiar.png").resize((25,25)))
-        # self.img10 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\dividir.png").resize((25,25)))
-        # self.img11 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\anotar.png").resize((25,25)))
-        # self.img12 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\el.png").resize((25,25)))
-        # self.img13 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl1.png").resize((25,25)))
-        # self.img14 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl2.png").resize((25,25)))
-        # self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="white",fg_color="white", hover_color="gray90", text_color="black"
-        #                       ,border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img3, command=lambda:self.cerrar()).place(x=460, y=20)
-        # self.btnoper11 = CTkButton(self.ventana, text='imprimir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img13, command=lambda:self.ingreso(a)).place(x=580, y=20)
-        
-        # self.btnoper4 = CTkButton(self.ventana, text='Anular Pedido', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img6,).place(x=460, y=78)
-        # self.btnoper5 = CTkButton(self.ventana, text='Pedientes', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img7).place(x=580, y=78)
-        # self.btnoper7 = CTkButton(self.ventana, text='Lipiar Formulario', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img9, command=lambda:self.Eliminar_todo_de_lista()).place(x=460, y=136)
-        # self.btnoper13 = CTkButton(self.ventana, text='Nuevo Producto', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP,image=self.img11, command=lambda:self.subir_producto_web()).place(x=580, y=136)   
-        
-        # self.btnoper10 = CTkButton(self.ventana, text='Eliminar', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img12,command=lambda:self.elim()).place(x=460, y=194)
-        # self.btnoper12 = CTkButton(self.ventana, text='Subir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14).place(x=580, y=194)
+
         
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
@@ -137,6 +94,7 @@ class Interfaz(object):
     def borrar_widgets(self):
         self.btn_agregar2.destroy()
         self.combo.destroy()
+        self.tipo2_label.destroy()
         self.kilos_label.destroy()
         self.kilos_entry.destroy()
         self.precio_label.destroy()
@@ -176,7 +134,7 @@ class Interfaz(object):
             print("error dado pero pasado")
 
 
-        self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
+        self.tipo_label = CTkLabel(self.ventana,bg_color="green",text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
 
         self.tipo_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
@@ -188,15 +146,12 @@ class Interfaz(object):
         self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
         self.nom_entry.place(x=10, y=130)
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
+        self.btn_agregar = CTkButton(self.ventana,width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
         self.btn_agregar.place(x=10, y=170) 
     # ========================================================
     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
     # ========================================================
     def agregar_nuevo_tipo(self):
-
-        
-        
         tipo = self.tipo_entry.get()
         nom = self.nom_entry.get()
         if tipo=="" or nom =="":
@@ -252,9 +207,10 @@ class Interfaz(object):
         except:
             print("error dado pero pasado")
             
-        self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
+
         consultasql = self.datos.id_nombre_tipo()
-        
+        self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo:", text_color="white")
+        self.tipo2_label.place(x=10, y=10)        
         self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
         self.kilos_label.place(x=10, y=90)
         self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
@@ -269,7 +225,7 @@ class Interfaz(object):
         datos=result
         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
         self.combo.place(x=10, y=50)
-        self.btn_agregar2 = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
+        self.btn_agregar2 = CTkButton(self.ventana,width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
         self.btn_agregar2.place(x=10,y=250)
     # ========================================================
     # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
@@ -328,6 +284,16 @@ class Interfaz(object):
             self.btn_filtrar.destroy()
         except:
             print("error pasado")
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
+        try:
+            self.borrar_widgets2()
+            
+        except:
+            print("error dado pero pasado")
             
         self.mostrar_gamelas_por_fecha()
 
@@ -359,7 +325,7 @@ class Interfaz(object):
         self.filtro_fecha = Calendar(self.ventana, locale='es_ES')
         self.filtro_fecha.place(x=180,y=50)
 
-        self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
+        self.btn_filtrar = CTkButton(self.ventana,width=120,height=30,border_width=0,corner_radius=20,fg_color='#DAA520',bg_color='green',hover_color="#B8860B", text='Filtrar por Fecha', command=self.filtro, text_color="white")
         self.btn_filtrar.place(x=180,y=250)
         
     def filtro(self):
@@ -392,7 +358,42 @@ class Interfaz(object):
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
         
 
-        
+
+
+
+    def ingresar_venta(self):
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
+        try:
+            self.borrar_filtro()
+            
+        except:
+            print("error dado pero pasado")
+        try:
+            self.borrar_widgets2()
+            
+        except:
+            print("error dado pero pasado")
+            
+
+        consultasql = self.datos.id_nombre_tipo()
+        self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo:", text_color="white")
+        self.tipo2_label.place(x=10, y=10)        
+        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
+        self.kilos_label.place(x=10, y=90)
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.kilos_entry.place(x=10, y=130)
+
+        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio", text_color="white")
+        self.precio_label.place(x=10, y=170)
+        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.precio_entry.place(x=10, y=210)
+
+        pass
+
     # def eliminar_pedido(self):
     #     id=CTkInputDialog(title='Eliminar producto', text='eliminar')
     #     id.geometry('300x200+800+400')
@@ -519,30 +520,7 @@ class Interfaz(object):
     #listo
     def crear_boton_en_pantalla(self, elemento, precio, x, y, valor):
     # Crear un botón con el elemento y el precio obtenidos
-        if valor == 1:
-            btn1 = CTkButton(self.grupo1, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn1.place(x=x, y=y)
-        if valor == 2:
-            btn2 = CTkButton(self.grupo2, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn2.place(x=x, y=y)
-        if valor == 3:
-            btn3 = CTkButton(self.grupo3, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn3.place(x=x, y=y)
-        if valor == 4:
-            btn4 = CTkButton(self.grupo4, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn4.place(x=x, y=y)
-        if valor == 5:
-            btn5 = CTkButton(self.grupo5, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn5.place(x=x, y=y)
-        if valor == 6:
-            btn6 = CTkButton(self.grupo6, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn6.place(x=x, y=y)
-        if valor == 7:
-            btn7 = CTkButton(self.grupo7, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn7.place(x=x, y=y)
-        if valor == 8:
-            btn8 = CTkButton(self.grupo8, text=elemento, width=180, height=30, border_width=0, corner_radius=20, command=lambda:self.insertar_elemento_en_excel(elemento, precio))
-            btn8.place(x=x, y=y)
+        pass
     #listo
     # def crear_boton_en_pantalla2(self, elemento, precio, x, y):
     # # Crear un botón con el elemento y el precio obtenidos
@@ -579,128 +557,6 @@ class Interfaz(object):
         self.lista1.delete(0, "end")
         
     #listo 
-    def contadores(self):
-        self.cont1 = 0
-        self.cont2 = 0
-        self.cont3 = 0
-        self.cont4 = 0
-        self.cont5 = 0
-        self.cont6 = 0
-        self.cont7 = 0
-        self.cont8 = 0
-        self.cont9 = 0
-        self.contador = 0
-        self.precio= 0  
-        self.contador2 = 0
-        self.cont = 0
-    #listo 
-    #listo
-    def mostrar_grupo1(self):
-        valor = 1
-        self.valor = 1
-        self.crear_botones(self.items2, valor)
-        self.grupo1.place(x=390,y=80)
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        
-    #listo
-    def mostrar_grupo2(self):
-        valor = 2
-        self.valor = 2
-        self.grupo1.place_forget()
-        self.grupo2.place(x=390,y=80)
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo3(self):
-        valor = 3
-        self.valor =3
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place(x=390,y=80)
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo4(self):
-        valor = 4
-        self.valor =4
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place(x=390,y=80)
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo5(self):
-        valor = 5
-        self.valor =5
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place(x=390,y=80)
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo6(self):
-        valor = 6
-        self.valor =6
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place(x=390,y=80)
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo7(self):
-        valor = 7
-        self.valor =7
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place(x=390,y=80)
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo8(self):
-        valor = 8
-        self.valor =8
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place(x=390,y=80)
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
 
 
 
