@@ -24,15 +24,7 @@ class Interfaz(object):
         self.datos = conexion.Registro_de_datos()
 
         self.ventana.geometry("1240x620")
-        self.grupo1 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo2 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo3 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo4 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo5 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo6 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo7 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo8 = ctk.CTkFrame(self.ventana, width= 440,height=600)
-        self.grupo9 = ctk.CTkFrame(self.ventana, width= 440,height=600)
+
         
         altura = self.ventana.winfo_reqheight()
         anchura = self.ventana.winfo_reqwidth()
@@ -74,11 +66,6 @@ class Interfaz(object):
         
         # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
         # self.labelfoto = CTkLabel(self.ventana, text='', image = self.img2).place(x=950, y=20)
-        # self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
-        # self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
-        # self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
-        # self.btnPapasfritas = CTkButton(self.ventana,text='BEBIDAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo4()).place(x=850, y=90)
-        # self.btnPollo = CTkButton(self.ventana,text='COLACIONES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo5()).place(x=980, y=90)
         # self.btnPizza = CTkButton(self.ventana,text='POSTRES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo6()).place(x=1110, y=90)
         # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
@@ -563,7 +550,7 @@ class Interfaz(object):
     def Eliminar_todo_de_lista(self):
         self.lista1.delete(0, "end")
         
-    #listo 
+    #ver contadores
     def contadores(self):
         self.cont1 = 0
         self.cont2 = 0
@@ -579,113 +566,6 @@ class Interfaz(object):
         self.contador2 = 0
         self.cont = 0
     #listo 
-    #listo
-    def mostrar_grupo1(self):
-        valor = 1
-        self.valor = 1
-        self.crear_botones(self.items2, valor)
-        self.grupo1.place(x=390,y=80)
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        
-    #listo
-    def mostrar_grupo2(self):
-        valor = 2
-        self.valor = 2
-        self.grupo1.place_forget()
-        self.grupo2.place(x=390,y=80)
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo3(self):
-        valor = 3
-        self.valor =3
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place(x=390,y=80)
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo4(self):
-        valor = 4
-        self.valor =4
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place(x=390,y=80)
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo5(self):
-        valor = 5
-        self.valor =5
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place(x=390,y=80)
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo6(self):
-        valor = 6
-        self.valor =6
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place(x=390,y=80)
-        self.grupo7.place_forget()
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo7(self):
-        valor = 7
-        self.valor =7
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place(x=390,y=80)
-        self.grupo8.place_forget()
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
-    def mostrar_grupo8(self):
-        valor = 8
-        self.valor =8
-        self.grupo1.place_forget()
-        self.grupo2.place_forget()
-        self.grupo3.place_forget()
-        self.grupo4.place_forget()
-        self.grupo5.place_forget()
-        self.grupo6.place_forget()
-        self.grupo7.place_forget()
-        self.grupo8.place(x=390,y=80)
-        self.grupo9.place_forget()
-        self.crear_botones(self.items2, valor)
 
 
 

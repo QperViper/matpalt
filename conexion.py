@@ -51,7 +51,6 @@ class Registro_de_datos():
         return id_traer
     
 
-
     def agregar_gamela_de_compra(self,kilos,fecha,precio,nombre_prod):
         cur = self.conexion.cursor()
         sql = "INSERT INTO producto (kilos,f_compra,precio_compra,id_prod) VALUES (%s, %s, %s, %s)"
