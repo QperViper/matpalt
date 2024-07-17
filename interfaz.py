@@ -7,11 +7,11 @@ from CTkMessagebox import CTkMessagebox
 from openpyxl.workbook import Workbook
 from customtkinter import *
 from CTkListbox import *
-from customtkinter import  CTkButton, CTkEntry, CTkImage, CTkLabel
+from customtkinter import  CTkButton, CTkEntry, CTkLabel
 import customtkinter as ctk
-from PIL import ImageTk, Image
 from datetime import datetime
-
+from datetime import date
+from tkcalendar import Calendar
 
 import conexion
 
@@ -21,7 +21,6 @@ class Interfaz(object):
 
     def __init__(self) -> None:
         self.ventana=ctk.CTk()
-        #self.datos = conexion.Registro_de_datos()
         self.datos = conexion.Registro_de_datos()
 
         self.ventana.geometry("1240x620")
@@ -48,7 +47,10 @@ class Interfaz(object):
         # self.ventana.iconbitmap("C:\\FO_OK\\ico.ico")
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         self.cont =0
+        self.count =0
         self.items2 = []
         self.lista3 = []
         
@@ -63,23 +65,15 @@ class Interfaz(object):
         self.opciones()
         self.ventana.mainloop()
     #listo
+    def on_closing(self):
+        # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
+        print("La ventana se está cerrando.")
+        if messagebox.askokcancel("Salir", "Desea salir?"):
+            self.ventana.destroy()
     def opciones(self):
         
         # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
         # self.labelfoto = CTkLabel(self.ventana, text='', image = self.img2).place(x=950, y=20)
-<<<<<<< Updated upstream
-        self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
-        self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
-
-        self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
-
-        self.btnPapasfritas = CTkButton(self.ventana,text='BEBIDAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo4()).place(x=850, y=90)
-        self.btnPollo = CTkButton(self.ventana,text='COLACIONES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo5()).place(x=980, y=90)
-        self.btnPizza = CTkButton(self.ventana,text='POSTRES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo6()).place(x=1110, y=90)
-        self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
-        self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
-        # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-=======
         # self.botSan = ctk.CTkButton(self.ventana, text="SANDWICHES",width=120,height=30,border_width=0,corner_radius=20,bg_color='green', command=lambda:self.mostrar_grupo1()).place(x=850, y=50)
         # self.btnCompletos = ctk.CTkButton(self.ventana,text='PICHANGA',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo2()).place(x=980, y=50)
         # self.btnBebidas = CTkButton(self.ventana,text='PAPASFRITAS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo3()).place(x=1110, y=50)
@@ -89,10 +83,10 @@ class Interfaz(object):
         # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
         # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
         # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
-        self.btnPichangas = CTkButton(self.ventana,text='Abrir Historial',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
->>>>>>> Stashed changes
-        self.btnPichangas = CTkButton(self.ventana,text='Introducir frutas',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_historial()).place(x=850, y=500)
-        self.btnColaciones = CTkButton(self.ventana,text='ELIMINAR PEDIDO',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.eliminar_pedido()).place(x=1100, y=500)
+        self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
+        self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
+        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
+        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
 
 
     #listo
@@ -101,124 +95,299 @@ class Interfaz(object):
 
         self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
         # self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        a=1
-        self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
-        self.img4 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\faa.png").resize((25,25)))
-        self.img5 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\nota.png").resize((25,25)))
-        self.img6 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\x.png").resize((25,25)))
-        self.img7 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\p.png").resize((25,25)))
-        self.img8 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\r.png").resize((25,25)))
-        self.img9 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\limpiar.png").resize((25,25)))
-        self.img10 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\dividir.png").resize((25,25)))
-        self.img11 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\anotar.png").resize((25,25)))
-        self.img12 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\el.png").resize((25,25)))
-        self.img13 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl1.png").resize((25,25)))
-        self.img14 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl2.png").resize((25,25)))
-        self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black"
-                              ,border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img3, command=lambda:self.cerrar()).place(x=460, y=20)
-        self.btnoper11 = CTkButton(self.ventana, text='imprimir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img13, command=lambda:self.ingreso(a)).place(x=580, y=20)
+        # self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
+        # self.img4 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\faa.png").resize((25,25)))
+        # self.img5 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\nota.png").resize((25,25)))
+        # self.img6 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\x.png").resize((25,25)))
+        # self.img7 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\p.png").resize((25,25)))
+        # self.img8 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\r.png").resize((25,25)))
+        # self.img9 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\limpiar.png").resize((25,25)))
+        # self.img10 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\dividir.png").resize((25,25)))
+        # self.img11 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\anotar.png").resize((25,25)))
+        # self.img12 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\el.png").resize((25,25)))
+        # self.img13 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl1.png").resize((25,25)))
+        # self.img14 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fl2.png").resize((25,25)))
+        # self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="white",fg_color="white", hover_color="gray90", text_color="black"
+        #                       ,border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img3, command=lambda:self.cerrar()).place(x=460, y=20)
+        # self.btnoper11 = CTkButton(self.ventana, text='imprimir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img13, command=lambda:self.ingreso(a)).place(x=580, y=20)
         
-        self.btnoper4 = CTkButton(self.ventana, text='Anular Pedido', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img6,).place(x=460, y=78)
-        self.btnoper5 = CTkButton(self.ventana, text='Pedientes', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img7).place(x=580, y=78)
-        self.btnoper7 = CTkButton(self.ventana, text='Lipiar Formulario', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img9, command=lambda:self.Eliminar_todo_de_lista()).place(x=460, y=136)
-        self.btnoper13 = CTkButton(self.ventana, text='Nuevo Producto', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP,image=self.img11, command=lambda:self.subir_producto_web()).place(x=580, y=136)   
+        # self.btnoper4 = CTkButton(self.ventana, text='Anular Pedido', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img6,).place(x=460, y=78)
+        # self.btnoper5 = CTkButton(self.ventana, text='Pedientes', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img7).place(x=580, y=78)
+        # self.btnoper7 = CTkButton(self.ventana, text='Lipiar Formulario', width=120, height=30,border_color="black",fg_color="white", hover_color="gray90", text_color="black", 
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img9, command=lambda:self.Eliminar_todo_de_lista()).place(x=460, y=136)
+        # self.btnoper13 = CTkButton(self.ventana, text='Nuevo Producto', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP,image=self.img11, command=lambda:self.subir_producto_web()).place(x=580, y=136)   
         
-        self.btnoper10 = CTkButton(self.ventana, text='Eliminar', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img12,command=lambda:self.elim()).place(x=460, y=194)
-        self.btnoper12 = CTkButton(self.ventana, text='Subir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
-                              border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14).place(x=580, y=194)
+        # self.btnoper10 = CTkButton(self.ventana, text='Eliminar', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img12,command=lambda:self.elim()).place(x=460, y=194)
+        # self.btnoper12 = CTkButton(self.ventana, text='Subir', width=120, height=30, border_color="black",fg_color="white", hover_color="gray90", text_color="black",
+        #                       border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img14).place(x=580, y=194)
         
-        self.lista1 = CTkListbox(self.ventana, height=400,width=335, fg_color="black")
-        self.lista1.place(x=460,y=260)
+        self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
+        self.lista1.place(x=460,y=50)
+
         # self.lista1.insert(0, "")
+
+    # ========================================================
+    # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
+    # ========================================================
+    def borrar_widgets(self):
+        self.combo.destroy()
+        self.kilos_label.destroy()
+        self.kilos_entry.destroy()
+        self.precio_label.destroy()
+        self.precio_entry.destroy()
+        self.btn_agregar.destroy()
+        self.tipo_entry.destroy()
+        self.tipo_label.destroy()
+        self.nom_entry.destroy()
+        self.nom_label.destroy()
+    def borrar_filtro(self):
+        self.lista1.delete(0, tk.END)
+        self.filtro_fecha.destroy()
+        self.btn_filtrar.destroy()
+
         
+        
+    # ========================================================
+    # agrega tipo Arreglar 
+    # ========================================================
+    def agregar_tipo(self):
 
-    #listo
-    def mostrar_historial(self):
-        self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Nombre de la fruta:", text_color="black")
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
+        try:
+            self.borrar_filtro()
+            
+        except:
+            print("error dado pero pasado")
 
-        self.nombre_label = CTkLabel(self.ventana,bg_color="green", text="Fruta:", text_color="white")
-        self.nombre_label.place(x=10, y=10)
 
-        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.nombre_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-        self.nombre_entry.place(x=10, y=50)
+        self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
+        self.tipo_label.place(x=10, y=10)
 
-        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="black")
-        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
-        self.kilos_label.place(x=10, y=90)
+        self.tipo_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.tipo_entry.place(x=10, y=50)
 
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-        self.kilos_entry.place(x=10, y=130)
+        self.nom_label = CTkLabel(self.ventana,bg_color="green",text="Nombre Fruta", text_color="white")
+        self.nom_label.place(x=10, y=90)
 
-        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="black")
-        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio:", text_color="white")
-        self.precio_label.place(x=10, y=170)
+        self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
+        self.nom_entry.place(x=10, y=130)
 
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-        self.precio_entry.place(x=10, y=210)
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="black")
+        self.btn_agregar.place(x=10, y=170) 
+    # ========================================================
+    # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
+    # ========================================================
+    def agregar_nuevo_tipo(self):
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Agregar al historial', command=self.agregar_al_historial, text_color="black")
-        self.btn_agregar.place(x=10,y=250)
-    def agregar_al_historial(self):
-        nombre = self.nombre_entry.get()
-        kilos = self.kilos_entry.get()
-        precio = self.precio_entry.get()
-        if nombre=="" or kilos=="" or precio =="":
+        
+        
+        tipo = self.tipo_entry.get()
+        nom = self.nom_entry.get()
+        if tipo=="" or nom =="":
             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
         else:
-            id=1
-            self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
-
-<<<<<<< Updated upstream
-=======
             try:
-
-
-                # self.datos.ingresar_producto_por_kg_gamelas(id,nombre, float(kilos),precio)
-
-
-
-                nombre = self.nombre_entry.get()
-                kilos = self.kilos_entry.get()
-                precio = self.precio_entry.get()
-            
-                kilosint= int(kilos)
-                precioint = int(precio)
+                tipo = self.tipo_entry.get()
+                nom = self.nom_entry.get()
             except (Exception):
 
                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
+
+        self.datos.agregar_tipo(tipo,nom)
+        self.agregar_tipo()
+        self.msgok = CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")   
+    # ========================================================
+    # muestra los tipos de frutas y sus nombres
+    # ========================================================
+    def mostrar_tipos(self):
+        consultasql = self.datos.mostrar_tipo_prod()
+        result = [item[0] for item in consultasql]
+        datos = [item[1] for item in consultasql]
+        datos2 = [item[2] for item in consultasql]
+        try:
+            self.lista1.delete(0, tk.END)
+            self.filtro_fecha.destroy()
+            self.btn_filtrar.destroy()
+        except:
+            print("error pasado")
+        for i in range(len(result)):
+            # datoc= [datos[i],datos2[i]]
+            self.lista1.insert(result[i], f"{datos[i]}, ({datos2[i]})")
+            
+            # self.lista1.insert(result[i],formatted_datoc[i])
+
+    # ========================================================
+    # agrega una nueva fruta que compra el dueño a un archivo xlsx
+    # ========================================================
+    def agregar_nueva_fruta(self):
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
+        try:
+            self.borrar_filtro()
+            
+        except:
+            print("error dado pero pasado")
+            
+        self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
+        consultasql = self.datos.id_nombre_tipo()
+        
+        self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
+        self.kilos_label.place(x=10, y=90)
+        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.kilos_entry.place(x=10, y=130)
+
+        self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio", text_color="white")
+        self.precio_label.place(x=10, y=170)
+        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.precio_entry.place(x=10, y=210)
+        
+        result = [item[1] for item in consultasql]
+        datos=result
+        self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
+        self.combo.place(x=10, y=50)
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
+        self.btn_agregar.place(x=10,y=250)
+    # ========================================================
+    # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
+    # ========================================================
+    def agregar_gamela_frutas(self,):
+
+        kilos = self.kilos_entry.get()
+        precio = self.precio_entry.get()
+        if kilos=="" or precio =="":
+            self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
+        else:
+            try:
+                
+                comboint = self.combo.get()
+                kilos = self.kilos_entry.get()
+                precio = self.precio_entry.get()
+                kilosint= int(kilos)
+                precioint = int(precio)
+                fecha_hoy = date.today()
+                now = datetime.now()
+
+            except (Exception):
+                self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
                 print(kilosint,precioint)
+            consultasql = self.datos.id_nombre_tipo()
+            result = [item[1] for item in consultasql]
+            print(comboint)
+            
+            for i in range(len(result[1])):
+                for i in result:
+                    self.count += 1
+                    if self.combo.get() == i:
+                        # result2= 
+                        break                                                       
+                else:
+                    continue  
+                break 
+        self.datos.agregar_gamela_de_compra(kilosint, fecha_hoy, precioint,self.count)
+        self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")
+        self.agregar_nueva_fruta()
+        self.count =0
+        # self.historial_frutas.agregar_fruta(kilosint, fecha_hoy, precioint,1)
+        # self.msg2 = CTkMessagebox(self.ventana, title="ok", message="ingresado")
+    # ========================================================
+    # ========================================================
+    def mostrar_gamelas(self):
+        consultasql = self.datos.mostrar_gamela()
+        consultasql1 = self.datos.mostrar_tipo_prod()
+        d = [item[0] for item in consultasql]
+        d1 = [item[1] for item in consultasql]
+        d2 = [item[2] for item in consultasql]
+        d3 = [item[3] for item in consultasql]
+        d4 = [item[4] for item in consultasql]
+        try:
+            self.filtro_fecha.destroy()
+            self.btn_filtrar.destroy()
+        except:
+            print("error pasado")
+            
+        self.mostrar_gamelas_por_fecha()
+
+        for i in range(0, 51):
+        
+            try:
+                d5=int(d4[i])
+                nom=self.datos.nombre_tipo(d5)
+            except (Exception):
+                print("error pasado")
+
+            formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
+            print(formatted_output)
+
+            
+            # datoc= [datos[i],datos2[i]]
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
+
+    def mostrar_gamelas_por_fecha(self):
+        try:
+            self.borrar_widgets()
+            
+        except:
+            print("error dado pero pasado")
+
+        self.filtro_fecha = Calendar(self.ventana)
+        self.filtro_fecha.place(x=180,y=50)
+
+        self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
+        self.btn_filtrar.place(x=180,y=250)
+        
+    def filtro(self):
+        fecha_seleccionada = self.filtro_fecha.get_date()
+        # Convertir la fecha a objeto datetime
+        fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
+        # Formatear la fecha en 'YYYY-MM-DD'
+        fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
+        # print(fecha_formateada)
+        consultasql = self.datos.mostrar_gamela_por_fecha(fecha_formateada)
+        consultasql1 = self.datos.id_producto(fecha_formateada)
+        self.lista1.delete(0, tk.END)
+        count = [item[0] for item in consultasql1]
+        
+        s= count[0]  # toma el valor son parentesis ni corchete
+
+        d = [item[0] for item in consultasql]
+        d1 = [item[1] for item in consultasql]
+        d2 = [item[2] for item in consultasql]
+        d3 = [item[3] for item in consultasql]
+        d4 = [item[4] for item in consultasql]
+        for i in range(0, s):
+            try:
+                d5=int(d4[i])
+                nom=self.datos.nombre_tipo(d5)
+            except (Exception):
+                print("error pasado")
+            formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
+            print(formatted_output)
+            self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
+        
 
         
-        self.historial_frutas.agregar_fruta(nombre, kilosint, precioint)
-        self.msg2 = CTkMessagebox(self.ventana, title="Error", message="")
-        print(kilosint,precioint)
->>>>>>> Stashed changes
-
-
-
-        
-        
-    def eliminar_pedido(self):
-        id=CTkInputDialog(title='Eliminar producto', text='eliminar')
-        id.geometry('300x200+800+400')
-        dato=(int(id.get_input()))
-        print(dato)
-        contador_a_eliminar = [dato]  # Reemplaza con el contador del producto que deseas eliminar
-        self.datos.eliminar_producto_por_contador(contador_a_eliminar)
-        CTkMessagebox(title='MENSAJE', message=f'pedido {contador_a_eliminar} eliminado')
-    #listo
+    # def eliminar_pedido(self):
+    #     id=CTkInputDialog(title='Eliminar producto', text='eliminar')
+    #     id.geometry('300x200+800+400')
+    #     dato=(int(id.get_input()))
+    #     print(dato)
+    #     contador_a_eliminar = [dato]  # Reemplaza con el contador del producto que deseas eliminar
+    #     self.datos.eliminar_producto_por_contador(contador_a_eliminar)
+    #     CTkMessagebox(title='MENSAJE', message=f'pedido {contador_a_eliminar} eliminado')
+    # #listo
     def cerrar(self):
-        
         if messagebox.askokcancel("Salir", "quieres salir?"):
             self.ventana.destroy()
         
@@ -522,9 +691,6 @@ class Interfaz(object):
 
 class HistorialFrutas:
 
-<<<<<<< Updated upstream
-f =Interfaz()
-=======
     def __init__(self, archivo_excel):
         self.archivo_excel = archivo_excel
         self.historial = self.cargar_historial()
@@ -563,4 +729,3 @@ f =Interfaz()
             print(f"Nombre: {fruta['nombre']}, Kilos: {fruta['kilos']}, Precio: {fruta['precio']}")
 
 Interfaz()
->>>>>>> Stashed changes
