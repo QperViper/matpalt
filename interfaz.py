@@ -1,9 +1,6 @@
 from tkinter import messagebox
 import tkinter as tk
-
-
 from CTkMessagebox import CTkMessagebox
-from openpyxl.workbook import Workbook
 from customtkinter import *
 from CTkListbox import *
 from customtkinter import  CTkButton, CTkEntry, CTkLabel
@@ -11,8 +8,10 @@ import customtkinter as ctk
 from datetime import datetime
 from datetime import date
 from tkcalendar import Calendar
-
 import conexion
+
+# hacer que se haga un historial de lo que se gasta, gana y se pierde de las frutas
+# hacerlo con sql obviamente con matematicas, quizas implemetar una funcion. 
 
 
 class Interfaz(object):
@@ -21,82 +20,63 @@ class Interfaz(object):
         self.ventana=ctk.CTk()
         self.datos = conexion.Registro_de_datos()
     
-        # hacer que la ventana siempre se ponga en medio
-        self.ventana.geometry("1240x620")
-
-        
-        altura = self.ventana.winfo_reqheight()
-        anchura = self.ventana.winfo_reqwidth()
-        altura_pantalla = self.ventana.winfo_screenheight()
-        anchura_pantalla = self.ventana.winfo_screenwidth()
-        #print(f"Altura: {altura}\nAnchura: {anchura}\nAltura de pantalla: {altura_pantalla}\nAnchura de pantalla: {anchura_pantalla}")
-        # x = (anchura_pantalla // 5) - (anchura//4)
-        # y = (altura_pantalla//5) - (altura//4)
-        # x = (anchura_pantalla // 6) - (anchura//1)
-        # y = (altura_pantalla//8) - (altura//3)
-        # self.ventana.geometry(f"+{x}+{y}")
-        # self.ventana.iconbitmap("C:\\FO_OK\\ico.ico")
+        w = 1240 
+        h = 740
+        ws = self.ventana.winfo_screenwidth() 
+        hs = self.ventana.winfo_screenheight() 
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        self.ventana.geometry('%dx%d+%d+%d' % (w, h, x, y))
+        self.ventana.iconbitmap("C:\\img_MP\\p2.ico")
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
-        self.ventana.protocol("WM_DELETE_WINDOW", self.on_closing)
-
-      
+        self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
         self.count =0
-        self.items2 = []
+
        
         
-        #HACER COPIA PARA QUE NO SE BORRE
+        #HACER COPIA PARA QUE NO SE BORRE. no se que es esto especificar más
         
-        self.fecha_hoy = datetime.now()
+        self.fecha_hoy = datetime.today()
+        self.f_h = self.fecha_hoy.strftime("%d/%m/%y")
         self.product_list=[]
         self.btns = {}
         self.datos1 = []
-        self.contadores()
-        self.operaciones()
-        self.opciones()
-        self.ventana.mainloop()
-    #listo
-    def cerrar(self):
-        if messagebox.askokcancel("Salir", "quieres salir?"):
-            self.ventana.destroy()
-    def on_closing(self):
-        # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
-        print("La ventana se está cerrando.")
-        if messagebox.askokcancel("Salir", "Desea salir?"):
-            self.ventana.destroy()
-    def opciones(self):
         
-        # self.img2 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\FOODOK.PNG").resize((180,160)))
-        # self.labelfoto = CTkLabel(self.ventana, text='', image = self.img2).place(x=950, y=20)
-        # self.btnPizza = CTkButton(self.ventana,text='POSTRES',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo6()).place(x=1110, y=90)
-        # self.btnAgregados = CTkButton(self.ventana,text='COMPLETOS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo7()).place(x=850, y=130)
-        # self.btnPichangas = CTkButton(self.ventana,text='OTROS',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_grupo8()).place(x=980, y=130)
-        # self.btnColaciones = CTkButton(self.ventana,text='',width=120,height=30,border_width=0,corner_radius=20,command=lambda:self.mostrar_grupo9()).place(x=1110, y=130)
+        self.operaciones()
+        self.botones()
+        self.ventana.mainloop()
+    
+
+    def cerrar_ventana_principal(self):
+        self.msg = CTkMessagebox(title="Cerrar", message="Desea salir del programa?",
+                        icon="question", option_1="No", option_2="Si")
+        response = self.msg.get()
+    
+        if response=="Si":
+            self.ventana.destroy()     
+         
+
+        # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
+        #  if messagebox.askokcancel("Salir", "Desea salir?"):
+        #      self.ventana.destroy()
+
+    def botones(self):
         self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
         self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
         self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
         self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
 
-
-    #listo
     def operaciones(self):
-
-
-        # self.historial_frutas = HistorialFrutas('historial_frutas.xlsx')
-        # self.img3 = ImageTk.PhotoImage(Image.open("C:\\FO_OK\\fi3.png").resize((25,25)))
-
-        # self.btnoper1 = CTkButton(self.ventana, text='Salida', width=120, height=30, border_color="white",fg_color="white", hover_color="gray90", text_color="black"
-        #                       ,border_width=2, corner_radius=0, compound=ctk.TOP, image=self.img3, command=lambda:self.cerrar()).place(x=460, y=20)
-        
+        self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.5"}", text_color="black").place(x=1080,y=700)
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
-
-
 
     # ========================================================
     # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
     # ========================================================
     def borrar_widgets(self):
+        self.btn_agregar.destroy()
         self.combo.destroy()
         self.kilos_label.destroy()
         self.kilos_entry.destroy()
@@ -104,6 +84,7 @@ class Interfaz(object):
         self.precio_entry.destroy()
         self.btn_agregar.destroy()
         self.tipo_entry.destroy()
+        self.tipo2_label.destroy()
         self.tipo_label.destroy()
         self.nom_entry.destroy()
         self.nom_label.destroy()
@@ -111,14 +92,8 @@ class Interfaz(object):
         self.lista1.delete(0, tk.END)
         self.filtro_fecha.destroy()
         self.btn_filtrar.destroy()
-
-        
-        
-    # ========================================================
-    # agrega tipo Arreglar 
-    # ========================================================
-    def agregar_tipo(self):
-
+        self.combo.destroy()
+    def eliminar(self):
         try:
             self.borrar_widgets()
             
@@ -129,7 +104,13 @@ class Interfaz(object):
             
         except:
             print("error dado pero pasado")
+        
+    # ========================================================
+    # agrega tipo Arreglar 
+    # ========================================================
+    def agregar_tipo(self):
 
+        self.eliminar()
 
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
@@ -143,15 +124,14 @@ class Interfaz(object):
         self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
         self.nom_entry.place(x=10, y=130)
 
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="black")
+        self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
         self.btn_agregar.place(x=10, y=170) 
     # ========================================================
     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
     # ========================================================
     def agregar_nuevo_tipo(self):
 
-        
-        
+
         tipo = self.tipo_entry.get()
         nom = self.nom_entry.get()
         if tipo=="" or nom =="":
@@ -171,6 +151,7 @@ class Interfaz(object):
     # muestra los tipos de frutas y sus nombres
     # ========================================================
     def mostrar_tipos(self):
+        self.eliminar()
         consultasql = self.datos.mostrar_tipo_prod()
         result = [item[0] for item in consultasql]
         datos = [item[1] for item in consultasql]
@@ -191,19 +172,17 @@ class Interfaz(object):
     # agrega una nueva fruta que compra el dueño a un archivo xlsx
     # ========================================================
     def agregar_nueva_fruta(self):
-        try:
-            self.borrar_widgets()
-            
-        except:
-            print("error dado pero pasado")
-        try:
-            self.borrar_filtro()
-            
-        except:
-            print("error dado pero pasado")
+        self.eliminar()
             
   
         consultasql = self.datos.id_nombre_tipo()
+
+        result = [item[1] for item in consultasql]
+        datos=result
+        self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo Fruta:", text_color="white")
+        self.tipo2_label.place(x=10, y=10)
+        self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
+        self.combo.place(x=10, y=50)
         
         self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
         self.kilos_label.place(x=10, y=90)
@@ -215,10 +194,7 @@ class Interfaz(object):
         self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
         self.precio_entry.place(x=10, y=210)
         
-        result = [item[1] for item in consultasql]
-        datos=result
-        self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
-        self.combo.place(x=10, y=50)
+
         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
         self.btn_agregar.place(x=10,y=250)
     # ========================================================
@@ -338,49 +314,5 @@ class Interfaz(object):
             print(formatted_output)
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
         
-
-        
-    # def eliminar_pedido(self):
-    #     id=CTkInputDialog(title='Eliminar producto', text='eliminar')
-    #     id.geometry('300x200+800+400')
-    #     dato=(int(id.get_input()))
-    #     print(dato)
-    #     contador_a_eliminar = [dato]  # Reemplaza con el contador del producto que deseas eliminar
-    #     self.datos.eliminar_producto_por_contador(contador_a_eliminar)
-    #     CTkMessagebox(title='MENSAJE', message=f'pedido {contador_a_eliminar} eliminado')
-    # #listo
-
-        
-    # def mostrar_pedidos(self):
-    #     print("hola")
-    #     datos = self.datos.obtener_todos_los_productos()
-    #     print(datos)
-    #     display_string = "\n".join([" ".join(map(str, dato)) for dato in datos])
-    #     CTkMessagebox(title='base_de_datos', message=display_string)
-       
-#     def subir_producto_web(self):
-#         dato=self.datos.traer_ultimo_id_producto()
-#         for d in dato:
-#             print(d)
-#         if d is not None:
-#     # Acceder al primer elemento de la tupla y convertirlo a un entero
-#             ultimaid = d[0]
-#     # Imprimir solo el número
-#             print(ultimaid)
-#         id_cateogoria=CTkInputDialog(title='ingrese id_categoria', text='1=Sandwiches \n 2=Pichangas \n 3=Papasfritas \n 4=Bebestibles \n 5=Colaciones \n 6=Postres \n 7=Completos \n 8=Otros')
-#         id_cateogoria.geometry('500x400+600+400')
-#         if ultimaid ==0 or ultimaid ==None:
-#             ultimaid = 1
-#         iddefault = ultimaid + 1
-#         imagen=" "
-# # CAMBIAR ESTOOOOOOOOOOOOOOOOOOOOOOO
-
-
-
-
-
-    #listo 
-
-
 
 Interfaz()
