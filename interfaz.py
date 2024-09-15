@@ -66,9 +66,9 @@ class Interfaz(object):
         self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
         self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
         self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
-
+        self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.cierre()).place(x=980, y=130)
     def operaciones(self):
-        self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.5"}", text_color="black").place(x=1080,y=700)
+        self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.-6"}", text_color="black").place(x=1080,y=700)
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
 
@@ -76,18 +76,16 @@ class Interfaz(object):
     # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
     # ========================================================
     def borrar_widgets(self):
-        self.btn_agregar.destroy()
-        self.combo.destroy()
-        self.kilos_label.destroy()
-        self.kilos_entry.destroy()
-        self.precio_label.destroy()
-        self.precio_entry.destroy()
-        self.btn_agregar.destroy()
-        self.tipo_entry.destroy()
-        self.tipo2_label.destroy()
-        self.tipo_label.destroy()
-        self.nom_entry.destroy()
-        self.nom_label.destroy()
+        widgets = [
+        'btn_agregar', 'combo', 'kilos_label', 'kilos_entry',
+        'precio_label', 'precio_entry', 'tipo_entry',
+        'tipo2_label', 'tipo_label', 'nom_entry', 'nom_label'
+    ]
+    
+        for widget_name in widgets:
+            widget = getattr(self, widget_name, None)  # Get the widget, or None if it doesn't exist
+            if widget is not None:  # Only destroy if the widget exists
+                widget.destroy()
     def borrar_filtro(self):
         self.lista1.delete(0, tk.END)
         self.filtro_fecha.destroy()
@@ -152,6 +150,7 @@ class Interfaz(object):
     # ========================================================
     def mostrar_tipos(self):
         self.eliminar()
+      
         consultasql = self.datos.mostrar_tipo_prod()
         result = [item[0] for item in consultasql]
         datos = [item[1] for item in consultasql]
@@ -160,6 +159,7 @@ class Interfaz(object):
             self.lista1.delete(0, tk.END)
             self.filtro_fecha.destroy()
             self.btn_filtrar.destroy()
+
         except:
             print("error pasado")
         for i in range(len(result)):
@@ -284,7 +284,14 @@ class Interfaz(object):
 
         self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
         self.btn_filtrar.place(x=180,y=250)
-        
+    
+    # ========================================================
+    # debe cerrar con todo lo cobrado en el mes
+    # ========================================================     
+    def Cierre(self):
+
+        pass
+
     def filtro(self):
         fecha_seleccionada = self.filtro_fecha.get_date()
         # Convertir la fecha a objeto datetime

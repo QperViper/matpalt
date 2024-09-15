@@ -3,3 +3,6 @@ además se necesita saber que tipo de productos son ya que son categorizados sin
 así si alguien decide compra un nuevo producto o fruta deberá crear el tipo (id, tipo-producto,nombre_producto) de las frutas que los datos son
 (id,precio-venta,kilos,idtipo-producto), ademas se quiere saber cuanta fruta se pierde en merma de la merma se necesita saber el 
 (id,nombre,precio-perdida,kilos-idtipo_producto).
+
+
+El sistema debe poder dar un resultado de los precios otorgados en el mes por ejemplo, cuanto se vendió de cada cosa y el total de ventas del mes, incluyendo gastos, y perdidas

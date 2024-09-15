@@ -78,3 +78,11 @@ class Registro_de_datos():
             (id, cantidad, fecha.strftime('%Y-%m-%d'), precio, otro) for id, cantidad, fecha, precio, otro in filtro_fecha
         ]
         return filtro_fecha_formateado
+    
+    def Cierre_caja(self):
+        cur = self.conexion.cursor()
+        sql = "SELECT * FROM producto"
+        cur.execute(sql)
+        boleta = cur.fetchall()
+        cur.close()
+        return boleta
