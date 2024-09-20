@@ -27,7 +27,7 @@ class Interfaz(object):
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
         self.ventana.geometry('%dx%d+%d+%d' % (w, h, x, y))
-        self.ventana.iconbitmap("C:\\img_MP\\p2.ico")
+        # self.ventana.iconbitmap("C:\\img_MP\\p2.ico")
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
         self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
@@ -66,9 +66,11 @@ class Interfaz(object):
         self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
         self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
         self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
-        self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.cierre()).place(x=980, y=130)
+        self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.Cierre()).place(x=980, y=130)
     def operaciones(self):
-        self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.-6"}", text_color="black").place(x=1080,y=700)
+        # self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.6"}", text_color="black").place(x=1080,y=700)
+        self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 1.11.-2", text_color="black").place(x=1080, y=550)
+
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
 
@@ -79,7 +81,9 @@ class Interfaz(object):
         widgets = [
         'btn_agregar', 'combo', 'kilos_label', 'kilos_entry',
         'precio_label', 'precio_entry', 'tipo_entry',
-        'tipo2_label', 'tipo_label', 'nom_entry', 'nom_label'
+        'tipo2_label', 'tipo_label', 'nom_entry', 'nom_label','filtro_fecha',
+        'btn_filtrar','combo','fecha1','fecha1E','fecha2','fecha2E'
+
     ]
     
         for widget_name in widgets:
@@ -88,9 +92,6 @@ class Interfaz(object):
                 widget.destroy()
     def borrar_filtro(self):
         self.lista1.delete(0, tk.END)
-        self.filtro_fecha.destroy()
-        self.btn_filtrar.destroy()
-        self.combo.destroy()
     def eliminar(self):
         try:
             self.borrar_widgets()
@@ -109,6 +110,7 @@ class Interfaz(object):
     def agregar_tipo(self):
 
         self.eliminar()
+        
 
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
@@ -289,9 +291,52 @@ class Interfaz(object):
     # debe cerrar con todo lo cobrado en el mes
     # ========================================================     
     def Cierre(self):
+        self.eliminar()
 
+        self.filtro_fecha = Calendar(self.ventana)
+        self.filtro_fecha.place(x=180,y=50)
+
+        self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Insertar', command=self.C1, text_color="white")
+        self.btn_filtrar.place(x=180,y=250)
+
+        self.btn_buscarCierre = CTkButton(self.ventana,bg_color="green", text='Buscar', command=self.C2, text_color="white")
+        self.btn_buscarCierre.place(x=180,y=290)
+
+        self.fecha1 = CTkLabel(self.ventana,bg_color="green",text="DESDE el:", text_color="white")
+        self.fecha1.place(x=10, y=90)
+        self.fecha1E = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.fecha1E.place(x=10, y=130)
+
+        self.fecha2 = CTkLabel(self.ventana,bg_color="green", text="HASTA EL:", text_color="white")
+        self.fecha2.place(x=10, y=170)
+        self.fecha2E = CTkEntry(self.ventana,bg_color="green", text_color="white")
+        self.fecha2E.place(x=10, y=210)
         pass
+    
+    def C1(self):
+        print("entra")
+        fecha_seleccionada = self.filtro_fecha.get_date()
+        # Convertir la fecha a objeto datetime
+        fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
+        # Formatear la fecha en 'YYYY-MM-DD'
+        fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
+        if self.fecha1E.get()=="":
+            try:
+                self.fecha1E.insert(0, fecha_formateada)
+            except:
+                print("error")
+        else:
+            if self.fecha2E.get()=="":
+                try:
+                    self.fecha2E.insert(0, fecha_formateada)
+                except:
+                    print("error")
 
+    def C2(self):
+        pass
+        
+            
+        
     def filtro(self):
         fecha_seleccionada = self.filtro_fecha.get_date()
         # Convertir la fecha a objeto datetime
