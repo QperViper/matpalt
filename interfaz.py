@@ -69,7 +69,7 @@ class Interfaz(object):
         self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.Cierre()).place(x=980, y=130)
     def operaciones(self):
         # self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.6"}", text_color="black").place(x=1080,y=700)
-        self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 1.11.-2", text_color="black").place(x=1080, y=550)
+        self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 1.11.-4", text_color="black").place(x=1080, y=550)
 
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
         self.lista1.place(x=460,y=50)
@@ -323,6 +323,7 @@ class Interfaz(object):
         if self.fecha1E.get()=="":
             try:
                 self.fecha1E.insert(0, fecha_formateada)
+                
             except:
                 print("error")
         else:
@@ -332,8 +333,33 @@ class Interfaz(object):
                 except:
                     print("error")
 
+        consultasql = self.datos.mostrar_tipo_prod()
+        result = [item[0] for item in consultasql]
+        datos = [item[1] for item in consultasql]
+        datos2 = [item[2] for item in consultasql]
+        try:
+            self.lista1.delete(0, tk.END)
+
+        except:
+            print("error pasado")
+        for i in range(len(result)):
+            # datoc= [datos[i],datos2[i]]
+            self.lista1.insert(result[i], f"{datos2[i]}")
+
     def C2(self):
-        pass
+        seleccion = self.lista1.curselection()
+
+        # PUEDO CAMBIAR Y PONER EL INT DE SQL y deberia por si se borra será siempre el int id 
+        print(seleccion + 1)
+
+        # Verificamos si seleccion es una tupla no vacía
+        
+        print(self.fecha1E.get())
+        print(self.fecha2E.get())
+        
+        
+        
+        
         
             
         

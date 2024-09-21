@@ -6,3 +6,6 @@ así si alguien decide compra un nuevo producto o fruta deberá crear el tipo (i
 
 
 El sistema debe poder dar un resultado de los precios otorgados en el mes por ejemplo, cuanto se vendió de cada cosa y el total de ventas del mes, incluyendo gastos, y perdidas
+
+
+el sistema tambien se debe poder modificar los precios y los valores para tener un mejor cierre
