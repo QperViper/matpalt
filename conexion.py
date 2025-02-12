@@ -15,7 +15,7 @@ class Registro_de_datos():
         self.conexion.commit()
         cur.close()
 
-    def mostrar_tipo_prod(self):
+    def mostrar_tipo_prod(self):# en Qué caso ocupo esto? debo poner un limite
         cur = self.conexion.cursor()
         sql = "SELECT * FROM tipo_prod"
         cur.execute(sql)

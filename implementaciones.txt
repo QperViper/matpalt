@@ -1,0 +1,8 @@
+12-02-2025: implemtación de focus, hay que agregar focus a cada uno de los botónes que ejecutan tareas, de esta manera, navegar de hará mas comodo y versatil
+
+
+
+
+
+
+

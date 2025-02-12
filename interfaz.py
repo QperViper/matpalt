@@ -33,7 +33,6 @@ class Interfaz(object):
         self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
         self.count =0 #este count es usado para que no se acumule el numero cuando se busca el id en el sql
 
-       
         
         #HACER COPIA PARA QUE NO SE BORRE. no se que es esto especificar más
         self.fecha_hoy = datetime.today()
@@ -43,6 +42,7 @@ class Interfaz(object):
         self.operaciones()
         self.botones_inicio()
         self.ventana.mainloop()
+    
     
     #CIERRE DE VENTANA
     def cerrar_ventana_principal(self):
@@ -60,8 +60,8 @@ class Interfaz(object):
     def botones_inicio(self):
         self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
         self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
-        self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
-        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
+        self.btntipo = CTkButton(self.ventana,text='Agregar Fruta',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
+        self.btntipo2 = CTkButton(self.ventana,text='Mostrar Fruta',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
         self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.Cierre()).place(x=980, y=130)
     def operaciones(self):
         self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 1.11.-4", text_color="black").place(x=1080, y=550)
@@ -70,7 +70,7 @@ class Interfaz(object):
         self.lista1.place(x=460,y=50)
 
     # ========================================================
-    # borra los entrys ARREGLAR ojala hacer otro para borrar el fitro y el btn 
+    # borra los entrys, y botones
     # ========================================================
     def borrar_widgets(self):
         widgets = [
@@ -106,7 +106,18 @@ class Interfaz(object):
 
         self.eliminar()
         
-
+        def cambiar_foco(event):
+            event.widget.tk_focusNext().focus()
+            return "break"
+        def cambiar_foco_atras(event):
+            event.widget.tk_focusPrev().focus()
+            return "break"
+        def cambiar_foco_derecha(event):# usar en caso de
+            event.widget.tk_focusNext().focus()
+            return "break"
+        def cambiar_foco_izquierda(event):
+            event.widget.tk_focusNext().focus()
+            return "break"
         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
         self.tipo_label.place(x=10, y=10)
 
@@ -121,6 +132,12 @@ class Interfaz(object):
 
         self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
         self.btn_agregar.place(x=10, y=170) 
+        self.tipo_entry.focus()
+        self.tipo_entry.bind("<Down>", cambiar_foco)
+        self.nom_entry.bind("<Down>", cambiar_foco)
+        self.tipo_entry.bind("<Up>", cambiar_foco_atras)
+        self.nom_entry.bind("<Up>", cambiar_foco_atras)
+        
     # ========================================================
     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
     # ========================================================
@@ -270,11 +287,8 @@ class Interfaz(object):
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
 
     def mostrar_gamelas_por_fecha(self):
-        try:
-            self.borrar_widgets()
-            
-        except:
-            print("error dado pero pasado")
+        self.eliminar()
+
 
         self.filtro_fecha = Calendar(self.ventana)
         self.filtro_fecha.place(x=180,y=50)
@@ -312,7 +326,7 @@ class Interfaz(object):
         print("entra")
         fecha_seleccionada = self.filtro_fecha.get_date()
         # Convertir la fecha a objeto datetime
-        fecha_obj = datetime.strptime(fecha_seleccionada, '%d/%m/%y')
+        fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
         # Formatear la fecha en 'YYYY-MM-DD'
         fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
         if self.fecha1E.get()=="":
@@ -328,7 +342,7 @@ class Interfaz(object):
                 except:
                     print("error")
 
-        consultasql = self.datos.mostrar_tipo_prod()
+        consultasql = self.datos.mostrar_tipo_prod() # para qué mostrar antes todos los productos
         result = [item[0] for item in consultasql]
         datos = [item[1] for item in consultasql]
         datos2 = [item[2] for item in consultasql]
