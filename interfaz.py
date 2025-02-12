@@ -20,7 +20,7 @@ class Interfaz(object):
         self.ventana=ctk.CTk()
         self.datos = conexion.Registro_de_datos()
     
-        w = 1240 
+        w = 1240 # mucho texto no es necesario todo esto, que se habra en 1240 y listo
         h = 740
         ws = self.ventana.winfo_screenwidth() 
         hs = self.ventana.winfo_screenheight() 
@@ -31,28 +31,24 @@ class Interfaz(object):
         self.ventana.title("MATPALT")
         self.ventana.config(bg="green") 
         self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
-        self.count =0
+        self.count =0 #este count es usado para que no se acumule el numero cuando se busca el id en el sql
 
        
         
         #HACER COPIA PARA QUE NO SE BORRE. no se que es esto especificar más
-        
         self.fecha_hoy = datetime.today()
         self.f_h = self.fecha_hoy.strftime("%d/%m/%y")
-        self.product_list=[]
-        self.btns = {}
-        self.datos1 = []
+        
         
         self.operaciones()
-        self.botones()
+        self.botones_inicio()
         self.ventana.mainloop()
     
-
+    #CIERRE DE VENTANA
     def cerrar_ventana_principal(self):
         self.msg = CTkMessagebox(title="Cerrar", message="Desea salir del programa?",
                         icon="question", option_1="No", option_2="Si")
         response = self.msg.get()
-    
         if response=="Si":
             self.ventana.destroy()     
          
@@ -60,15 +56,14 @@ class Interfaz(object):
         # Aquí puedes poner el código que quieras ejecutar cuando se cierra la ventana
         #  if messagebox.askokcancel("Salir", "Desea salir?"):
         #      self.ventana.destroy()
-
-    def botones(self):
+    #OPERACIONES Y BOTONES PARA EJECUTAAR TAREAS
+    def botones_inicio(self):
         self.btnprod = CTkButton(self.ventana,text='Agregar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_nueva_fruta()).place(x=980, y=50)
         self.btnprod2 = CTkButton(self.ventana,text='Mostrar Gamela',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_gamelas()).place(x=980, y=90)
         self.btntipo = CTkButton(self.ventana,text='Agregar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.agregar_tipo()).place(x=1110, y=50)
         self.btntipo2 = CTkButton(self.ventana,text='Mostrar Tipo',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
         self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.Cierre()).place(x=980, y=130)
     def operaciones(self):
-        # self.lbl_fecha = CTkLabel(self.ventana,bg_color="green",text=f"{self.f_h} {"versión 1.10.6"}", text_color="black").place(x=1080,y=700)
         self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 1.11.-4", text_color="black").place(x=1080, y=550)
 
         self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
@@ -82,7 +77,7 @@ class Interfaz(object):
         'btn_agregar', 'combo', 'kilos_label', 'kilos_entry',
         'precio_label', 'precio_entry', 'tipo_entry',
         'tipo2_label', 'tipo_label', 'nom_entry', 'nom_label','filtro_fecha',
-        'btn_filtrar','combo','fecha1','fecha1E','fecha2','fecha2E'
+        'btn_filtrar','combo','fecha1','fecha1E','fecha2','fecha2E','btn_buscarCierre'
 
     ]
     
@@ -317,7 +312,7 @@ class Interfaz(object):
         print("entra")
         fecha_seleccionada = self.filtro_fecha.get_date()
         # Convertir la fecha a objeto datetime
-        fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
+        fecha_obj = datetime.strptime(fecha_seleccionada, '%d/%m/%y')
         # Formatear la fecha en 'YYYY-MM-DD'
         fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
         if self.fecha1E.get()=="":
