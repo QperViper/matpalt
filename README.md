@@ -9,3 +9,4 @@ añadir alguna libreria para mejorar la vision de los graficos
  + implementación de focus NO TERMINADO
 
 
+
