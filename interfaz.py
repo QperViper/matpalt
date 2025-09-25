@@ -1,6 +1,8 @@
 from tkinter import messagebox
 import tkinter as tk
+from turtle import title
 from CTkMessagebox import CTkMessagebox
+from PIL.Image import preinit
 from customtkinter import *
 from CTkListbox import *
 from customtkinter import  CTkButton, CTkEntry, CTkLabel
@@ -19,18 +21,34 @@ class Interfaz(object):
     def __init__(self) -> None:
         self.ventana=ctk.CTk()
         self.datos = conexion.Registro_de_datos()
-    
+
         w = 1240 # mucho texto no es necesario todo esto, que se habra en 1240 y listo
         h = 740
         ws = self.ventana.winfo_screenwidth() 
         hs = self.ventana.winfo_screenheight() 
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
+       
         self.ventana.geometry('%dx%d+%d+%d' % (w, h, x, y))
         # self.ventana.iconbitmap("C:\\img_MP\\p2.ico")
+        # self.ventana.title("MATPALT")
+        # self.ventana.config(bg="green")
+        # border= ctk.CTkFrame(self.ventana, background_corner_colors=["black", "red"])
+        # self.ventana.config(bd=5, relief="ridge")    
+        # self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
         self.ventana.title("MATPALT")
-        self.ventana.config(bg="green") 
+
+# Frame principal simulando borde negro
+        border = ctk.CTkFrame(self.ventana, corner_radius=0, fg_color="black", width=1240, height=740)
+        border.place(x=0, y=0)
+
+# Frame interior con fondo verde
+        inner_frame = ctk.CTkFrame(border, corner_radius=10, fg_color="green", width=1220, height=720)
+        inner_frame.place(x=10, y=10)
+
         self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana_principal)
+
+
         self.count =0 #este count es usado para que no se acumule el numero cuando se busca el id en el sql
 
         
@@ -215,7 +233,7 @@ class Interfaz(object):
     # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
     # ========================================================
     def agregar_gamela_frutas(self,):
-
+        
         kilos = self.kilos_entry.get()
         precio = self.precio_entry.get()
         if kilos=="" or precio =="":
@@ -237,13 +255,18 @@ class Interfaz(object):
             consultasql = self.datos.id_nombre_tipo()
             result = [item[1] for item in consultasql]
             print(comboint)
-            
-            for i in range(len(result[1])):
-                for i in result:
-                    self.count += 1
-                    if self.combo.get() == i:
-                        # result2= 
-                        break                                                       
+        
+            # for i in range(len(result[1])):
+            #     for i in result:
+            #         self.count += 1
+            #         if self.combo.get() == i:
+            #             # result2= 
+            #             break  
+            for item in result:
+                self.count += 1
+                if self.combo.get() == item:
+                    break
+                                                     
                 else:
                     continue  
                 break 

@@ -5,7 +5,7 @@ class Registro_de_datos():
         self.conexion = mysql.connector.connect(host='localhost',
                                                 database='matpalt',
                                                 user='root',
-                                                password='1234')
+                                                password='Logmatri10')
             # tipo prod 
     def agregar_tipo(self,tipo,nombre):
         cur = self.conexion.cursor()
