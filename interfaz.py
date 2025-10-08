@@ -423,6 +423,9 @@ class Interfaz(object):
             formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
             print(formatted_output)
             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
-        
+
+#======================================================
+
+
 
 Interfaz()
