@@ -15,14 +15,6 @@ class Registro_de_datos():
         dato = cur.fetchall()
         cur.close()
         return dato
-    def compra_fruta(self,id_producto,kg,precio_total,fecha_compra):
-        id_compra = 0
-        cur = self.conexion2.cursor()
-        sql = "INSERT INTO compra_fruta (id_compra,id_producto,kg,precio_total,fecha_compra) VALUES (%s, %s, %s, %s, %s)"
-        data = (id_compra,id_producto,kg,precio_total,fecha_compra)
-        cur.execute(sql,data)
-        self.conexion2.commit()
-        cur.close()
 
     def ingresar_producto(self,nom):
         id= 0
@@ -32,6 +24,26 @@ class Registro_de_datos():
         cur.execute(sql,data)
         self.conexion2.commit()
         cur.close()
+
+    def compra_fruta(self,id_producto,kg,precio_total,fecha_compra):
+        id_compra = 0
+        cur = self.conexion2.cursor()
+        sql = "INSERT INTO compra_fruta (id_compra,id_producto,kg,precio_total,fecha_compra) VALUES (%s, %s, %s, %s, %s)"
+        data = (id_compra,id_producto,kg,precio_total,fecha_compra)
+        cur.execute(sql,data)
+        self.conexion2.commit()
+        cur.close()
+
+    def vernder_fruta(self,id_producto,kg,precio_total,fecha_compra):
+        id_compra = 0
+        cur = self.conexion2.cursor()
+        sql = "INSERT INTO venta_fruta (id_venta,id_producto,kg,precio_total,fecha_venta) VALUES (%s, %s, %s, %s, %s)"
+        data = (id_compra,id_producto,kg,precio_total,fecha_compra)
+        cur.execute(sql,data)
+        self.conexion2.commit()
+        cur.close()
+
+
 
 
 
