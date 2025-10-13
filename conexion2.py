@@ -43,6 +43,15 @@ class Registro_de_datos():
         self.conexion2.commit()
         cur.close()
 
+    def ingresar_insumo(self,insumo,valor,fecha):
+        id_registro = 0
+        cur = self.conexion2.cursor()
+        sql = "INSERT INTO insumo (id_insumo,nombre_insumo,valor_insumo,fecha_compra_insumo) VALUES (%s, %s, %s, %s)"
+        data = (id_registro,insumo,valor,fecha)
+        cur.execute(sql,data)
+        self.conexion2.commit()
+        cur.close()
+
 
 
 

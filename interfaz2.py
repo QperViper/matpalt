@@ -78,17 +78,16 @@ class Interfaz(object):
         #      self.ventana.destroy()
     #OPERACIONES Y BOTONES PARA EJECUTAAR TAREAS
     def botones_inicio(self):
-       
-        self.btnprod = CTkButton(self.ventana,text='Compra de Frutas',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.comprar_fruta()).place(x=980, y=90)
-        self.btnprod2 = CTkButton(self.ventana,text='Ingresar Nuevo Producto',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.ingresar_producto()).place(x=980, y=50)
-        self.btntipo = CTkButton(self.ventana,text='Vender Fruta o Frutas',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.vender_fruta()).place(x=980, y=130)
-        # self.btntipo2 = CTkButton(self.ventana,text='Mostrar Fruta',width=120,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.mostrar_tipos()).place(x=1110, y=90)
-        # self.cierre = CTkButton(self.ventana,text='Cierre',width=120,height=30,border_width=0,corner_radius=20,fg_color="black",bg_color='green',command=lambda:self.Cierre()).place(x=980, y=130)
+        self.btn1 = CTkButton(self.ventana,text='Ingresar Nuevo Producto',width=180,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.ingresar_producto()).place(x=980, y=50)
+        self.btn2 = CTkButton(self.ventana,text='Compra de Frutas',width=180,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.comprar_fruta()).place(x=980, y=90)
+        self.btn3 = CTkButton(self.ventana,text='Vender Fruta o Frutas',width=180,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.vender_fruta()).place(x=980, y=130)
+        self.btn4 = CTkButton(self.ventana,text='Ingresar Nuevo Insumo',width=180,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.ingresar_insumo()).place(x=980, y=170)
+        self.btn5 = CTkButton(self.ventana,text='Registro de Cambio',width=180,height=30,border_width=0,corner_radius=20,bg_color='green',command=lambda:self.registro_cambio()).place(x=980, y=210)
     def operaciones(self):
         self.lbl_fecha = CTkLabel(self.ventana, bg_color="green", text=f"{self.f_h} versión 0.15", text_color="black").place(x=1080, y=550)
 
-        self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
-        self.lista1.place(x=460,y=50)
+        # self.lista1 = CTkListbox(self.ventana, height=400,width=480, fg_color="black", bg_color="green",font=("Arial", 14))
+        # self.lista1.place(x=460,y=50)
 
     # ========================================================
     # borra los entrys, y botones
@@ -99,10 +98,7 @@ class Interfaz(object):
         'precio_label', 'precio_entry', 'tipo_entry',
         'tipo2_label', 'tipo_label', 'nom_entry', 'nom_label','filtro_fecha',
         'btn_filtrar','combo','fecha1','fecha1E','fecha2','fecha2E','btn_buscarCierre',"nombre_entry",
-        "nombre_label"
-
-    ]
-    
+        "nombre_label", "val_ins", "nom_ins","moneda","billete"]
         for widget_name in widgets:
             widget = getattr(self, widget_name, None)  # Get the widget, or None if it doesn't exist
             if widget is not None:  # Only destroy if the widget exists
@@ -121,314 +117,7 @@ class Interfaz(object):
         except:
             print("error dado pero pasado")
         
-#     # ========================================================
-#     # agrega tipo Arreglar 
-#     # ========================================================
-#     def agregar_tipo(self):
 
-#         self.eliminar()
-        
-#         def cambiar_foco(event):
-#             event.widget.tk_focusNext().focus()
-#             return "break"
-#         def cambiar_foco_atras(event):
-#             event.widget.tk_focusPrev().focus()
-#             return "break"
-#         def cambiar_foco_derecha(event):# usar en caso de
-#             event.widget.tk_focusNext().focus()
-#             return "break"
-#         def cambiar_foco_izquierda(event):
-#             event.widget.tk_focusNext().focus()
-#             return "break"
-#         self.tipo_label = CTkLabel(self.ventana,bg_color="green", text="Nombre tipo", text_color="white")
-#         self.tipo_label.place(x=10, y=10)
-
-#         self.tipo_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-#         self.tipo_entry.place(x=10, y=50)
-
-#         self.nom_label = CTkLabel(self.ventana,bg_color="green",text="Nombre Fruta", text_color="white")
-#         self.nom_label.place(x=10, y=90)
-
-#         self.nom_entry = CTkEntry(self.ventana,bg_color="green", text_color="black")
-#         self.nom_entry.place(x=10, y=130)
-
-#         self.btn_agregar = CTkButton(self.ventana,bg_color="green",command=self.agregar_nuevo_tipo ,text='Aceptar', text_color="white")
-#         self.btn_agregar.place(x=10, y=170) 
-#         self.tipo_entry.focus()
-#         self.tipo_entry.bind("<Down>", cambiar_foco)
-#         self.nom_entry.bind("<Down>", cambiar_foco)
-#         self.tipo_entry.bind("<Up>", cambiar_foco_atras)
-#         self.nom_entry.bind("<Up>", cambiar_foco_atras)
-        
-#     # ========================================================
-#     # ejecuta el agregado tipo Arreglar (debe ingresar a una xlsx tambien)
-#     # ========================================================
-#     def agregar_nuevo_tipo(self):
-
-
-#         tipo = self.tipo_entry.get()
-#         nom = self.nom_entry.get()
-#         if tipo=="" or nom =="":
-#             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
-#         else:
-#             try:
-#                 tipo = self.tipo_entry.get()
-#                 nom = self.nom_entry.get()
-#             except (Exception):
-
-#                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
-
-#         self.datos.agregar_tipo(tipo,nom)
-#         self.agregar_tipo()
-#         self.msgok = CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")   
-#     # ========================================================
-#     # muestra los tipos de frutas y sus nombres
-#     # ========================================================
-#     def mostrar_tipos(self):
-#         self.eliminar()
-      
-#         consultasql = self.datos.mostrar_tipo_prod()
-#         result = [item[0] for item in consultasql]
-#         datos = [item[1] for item in consultasql]
-#         datos2 = [item[2] for item in consultasql]
-#         try:
-#             self.lista1.delete(0, tk.END)
-#             self.filtro_fecha.destroy()
-#             self.btn_filtrar.destroy()
-
-#         except:
-#             print("error pasado")
-#         for i in range(len(result)):
-#             # datoc= [datos[i],datos2[i]]
-#             self.lista1.insert(result[i], f"{datos[i]}, ({datos2[i]})")
-            
-#             # self.lista1.insert(result[i],formatted_datoc[i])
-
-#     # ========================================================
-#     # agrega una nueva fruta que compra el dueño a un archivo xlsx
-#     # ========================================================
-#     def agregar_nueva_fruta(self):
-#         self.eliminar()
-            
-  
-#         consultasql = self.datos.id_nombre_tipo()
-
-#         result = [item[1] for item in consultasql]
-#         datos=result
-#         self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo Fruta:", text_color="white")
-#         self.tipo2_label.place(x=10, y=10)
-#         self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
-#         self.combo.place(x=10, y=50)
-        
-#         self.kilos_label = CTkLabel(self.ventana,bg_color="green",text="Kilos:", text_color="white")
-#         self.kilos_label.place(x=10, y=90)
-#         self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-#         self.kilos_entry.place(x=10, y=130)
-
-#         self.precio_label = CTkLabel(self.ventana,bg_color="green", text="Precio", text_color="white")
-#         self.precio_label.place(x=10, y=170)
-#         self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white")
-#         self.precio_entry.place(x=10, y=210)
-        
-
-#         self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.agregar_gamela_frutas, text_color="white")
-#         self.btn_agregar.place(x=10,y=250)
-#     # ========================================================
-#     # hace la ejecucion de agregar_nueva_fruta. Arreglar(debe ingresar estos datos tambien a sql)
-#     # ========================================================
-#     def agregar_gamela_frutas(self,):
-        
-#         kilos = self.kilos_entry.get()
-#         precio = self.precio_entry.get()
-#         if kilos=="" or precio =="":
-#             self.msg = CTkMessagebox(self.ventana, title="Error", message="no existen datos para ingresar")
-#         else:
-#             try:
-                
-#                 comboint = self.combo.get()
-#                 kilos = self.kilos_entry.get()
-#                 precio = self.precio_entry.get()
-#                 kilosint= int(kilos)
-#                 precioint = int(precio)
-#                 fecha_hoy = date.today()
-#                 now = datetime.now()
-
-#             except (Exception):
-#                 self.msg2 = CTkMessagebox(self.ventana, title="Error", message="Los Kilos y el Precio deben ser numeros enteros")
-#                 print(kilosint,precioint)
-#             consultasql = self.datos.id_nombre_tipo()
-#             result = [item[1] for item in consultasql]
-#             print(comboint)
-        
-#             # for i in range(len(result[1])):
-#             #     for i in result:
-#             #         self.count += 1
-#             #         if self.combo.get() == i:
-#             #             # result2= 
-#             #             break  
-#             for item in result:
-#                 self.count += 1
-#                 if self.combo.get() == item:
-#                     break
-                                                     
-#                 else:
-#                     continue  
-#                 break 
-#         self.datos.agregar_gamela_de_compra(kilosint, fecha_hoy, precioint,self.count)
-#         self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")
-#         self.agregar_nueva_fruta()
-#         self.count =0
-#         # self.historial_frutas.agregar_fruta(kilosint, fecha_hoy, precioint,1)
-#         # self.msg2 = CTkMessagebox(self.ventana, title="ok", message="ingresado")
-#     # ========================================================
-#     # ========================================================
-#     def mostrar_gamelas(self):
-#         consultasql = self.datos.mostrar_gamela()
-#         consultasql1 = self.datos.mostrar_tipo_prod()
-#         d = [item[0] for item in consultasql]
-#         d1 = [item[1] for item in consultasql]
-#         d2 = [item[2] for item in consultasql]
-#         d3 = [item[3] for item in consultasql]
-#         d4 = [item[4] for item in consultasql]
-#         try:
-#             self.filtro_fecha.destroy()
-#             self.btn_filtrar.destroy()
-#         except:
-#             print("error pasado")
-            
-#         self.mostrar_gamelas_por_fecha()
-
-#         for i in range(0, 51):
-        
-#             try:
-#                 d5=int(d4[i])
-#                 nom=self.datos.nombre_tipo(d5)
-#             except (Exception):
-#                 print("error pasado")
-
-#             formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
-#             print(formatted_output)
-
-            
-#             # datoc= [datos[i],datos2[i]]
-#             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")
-
-#     def mostrar_gamelas_por_fecha(self):
-#         self.eliminar()
-
-
-#         self.filtro_fecha = Calendar(self.ventana)
-#         self.filtro_fecha.place(x=180,y=50)
-
-#         self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.filtro, text_color="white")
-#         self.btn_filtrar.place(x=180,y=250)
-    
-#     # ========================================================
-#     # debe cerrar con todo lo cobrado en el mes
-#     # ========================================================     
-#     def Cierre(self):
-#         self.eliminar()
-
-#         self.filtro_fecha = Calendar(self.ventana)
-#         self.filtro_fecha.place(x=180,y=50)
-
-#         self.btn_filtrar = CTkButton(self.ventana,bg_color="green", text='Insertar', command=self.C1, text_color="white")
-#         self.btn_filtrar.place(x=180,y=250)
-
-#         self.btn_buscarCierre = CTkButton(self.ventana,bg_color="green", text='Buscar', command=self.C2, text_color="white")
-#         self.btn_buscarCierre.place(x=180,y=290)
-
-#         self.fecha1 = CTkLabel(self.ventana,bg_color="green",text="DESDE el:", text_color="white")
-#         self.fecha1.place(x=10, y=90)
-#         self.fecha1E = CTkEntry(self.ventana,bg_color="green", text_color="white")
-#         self.fecha1E.place(x=10, y=130)
-
-#         self.fecha2 = CTkLabel(self.ventana,bg_color="green", text="HASTA EL:", text_color="white")
-#         self.fecha2.place(x=10, y=170)
-#         self.fecha2E = CTkEntry(self.ventana,bg_color="green", text_color="white")
-#         self.fecha2E.place(x=10, y=210)
-#         pass
-    
-#     def C1(self):
-#         print("entra")
-#         fecha_seleccionada = self.filtro_fecha.get_date()
-#         # Convertir la fecha a objeto datetime
-#         fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
-#         # Formatear la fecha en 'YYYY-MM-DD'
-#         fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
-#         if self.fecha1E.get()=="":
-#             try:
-#                 self.fecha1E.insert(0, fecha_formateada)
-                
-#             except:
-#                 print("error")
-#         else:
-#             if self.fecha2E.get()=="":
-#                 try:
-#                     self.fecha2E.insert(0, fecha_formateada)
-#                 except:
-#                     print("error")
-
-#         consultasql = self.datos.mostrar_tipo_prod() # para qué mostrar antes todos los productos
-#         result = [item[0] for item in consultasql]
-#         datos = [item[1] for item in consultasql]
-#         datos2 = [item[2] for item in consultasql]
-#         try:
-#             self.lista1.delete(0, tk.END)
-
-#         except:
-#             print("error pasado")
-#         for i in range(len(result)):
-#             # datoc= [datos[i],datos2[i]]
-#             self.lista1.insert(result[i], f"{datos2[i]}")
-
-#     def C2(self):
-#         seleccion = self.lista1.curselection()
-
-#         # PUEDO CAMBIAR Y PONER EL INT DE SQL y deberia por si se borra será siempre el int id 
-#         print(seleccion + 1)
-
-#         # Verificamos si seleccion es una tupla no vacía
-        
-#         print(self.fecha1E.get())
-#         print(self.fecha2E.get())
-        
-        
-        
-        
-        
-            
-        
-#     def filtro(self):
-#         fecha_seleccionada = self.filtro_fecha.get_date()
-#         # Convertir la fecha a objeto datetime
-#         fecha_obj = datetime.strptime(fecha_seleccionada, '%m/%d/%y')
-#         # Formatear la fecha en 'YYYY-MM-DD'
-#         fecha_formateada = fecha_obj.strftime('%Y-%m-%d')
-#         # print(fecha_formateada)
-#         consultasql = self.datos.mostrar_gamela_por_fecha(fecha_formateada)
-#         consultasql1 = self.datos.id_producto(fecha_formateada)
-#         self.lista1.delete(0, tk.END)
-#         count = [item[0] for item in consultasql1]
-        
-#         s= count[0]  # toma el valor son parentesis ni corchete
-
-#         d = [item[0] for item in consultasql]
-#         d1 = [item[1] for item in consultasql]
-#         d2 = [item[2] for item in consultasql]
-#         d3 = [item[3] for item in consultasql]
-#         d4 = [item[4] for item in consultasql]
-#         for i in range(0, s):
-#             try:
-#                 d5=int(d4[i])
-#                 nom=self.datos.nombre_tipo(d5)
-#             except (Exception):
-#                 print("error pasado")
-#             formatted_output = ', '.join(f"{item[0]}" for index, item in enumerate(nom))
-#             print(formatted_output)
-#             self.lista1.insert(d[i], f"gamela:{d[i]}, Kg:{d1[i]}, Fecha:{d2[i]}, Precio:{d3[i]}, {formatted_output}")   
-
-# #======================================================
     def ingresar_producto(self):
         self.eliminar()
 
@@ -459,9 +148,6 @@ class Interfaz(object):
 
 
     def comprar_fruta(self):
-
-  
-
         self.eliminar()
 
         consultasql = self.datos.producto()
@@ -486,61 +172,6 @@ class Interfaz(object):
 
 
 
-
-
-
-
-
-        # self.eliminar()
-            
-  
-        # consultasql = self.datos.producto()
-
-        # result = [item[1] for item in consultasql]
-        # id = [item[0] for item in consultasql]
-        # datos=result
-  
-
-        # # self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo Fruta:", text_color="white")
-        # # self.tipo2_label.place(x=10, y=200)
-        # # self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
-        # # self.combo.place(x=10, y=250)
-        # self.mapa = {item[1]: item[0] for item in consultasql}  # {"fruta":1, "merma":2, "proteina":3}
-
-        # self.combo = CTkComboBox(self.ventana, bg_color="green",
-        #                  values=list(self.mapa.keys()))
-        # self.combo.place(x=10, y=250)
-
-
-        # self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white",placeholder_text="Kilos")
-        # self.kilos_entry.place(x=10, y=330)
-
-        # self.ventana.bind("<Return>", lambda event: self.comprar_fruta2())
-        # self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white", placeholder_text="Precio")
-        # self.precio_entry.place(x=10, y=410)
-
-
-        
-        # # self.fech_label = CTkLabel(self.ventana,bg_color="green", text="fecha", text_color="white")    
-        # # self.fech_label.place(x=10, y=570) 
-        # # self.fech_entry = CTkEntry(self.ventana,bg_color="green", text_color="white") 
-        # # self.fech_entry.place(x=10, y=610)
-        # # self.btn_fecha_auto = CTkButton(self.ventana,bg_color="green", text="Poner fecha automática", command=lambda:fecha_automatica())
-        # # self.btn_fecha_auto.place(x=10, y=650)
-
-
-  
-        # self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.comprar_fruta2, text_color="white")
-        # self.btn_agregar.place(x=10,y=450)
-        # self.combo.bind("<Return>", lambda e: self.kilos_entry.focus())
-        # self.kilos_entry.bind("<Return>", lambda e: self.precio_entry.focus())
-        # self.precio_entry.bind("<Return>", lambda e: self.comprar_fruta2())
-
-
-        # # def fecha_automatica():
-        # #     hoy = date.today().strftime("%Y-%m-%d")
-        # #     self.fech_entry.delete(0, "end")
-        # #     self.fech_entry.insert(0, hoy)
     def comprar_fruta2(self):
         fecha = date.today().strftime("%Y-%m-%d")
         # self.fech_entry.delete(0, "end")
@@ -550,9 +181,10 @@ class Interfaz(object):
         nombre = self.combo.get()
         id_producto = self.mapa.get(nombre)
 
-        print(id_producto,kilos,precio,fecha)
+        
         try:
             self.datos.compra_fruta(id_producto,kilos,precio,fecha)
+            print(id_producto,kilos,precio,fecha + "entró")
         except:
             print("error al ingresar compra fruta2")
             pass
@@ -561,50 +193,34 @@ class Interfaz(object):
     def comprar_proteina(self):
         pass
 
+    def comprar_proteina2(self):
+        pass
+
 
     def vender_fruta(self):
         self.eliminar()
             
   
         consultasql = self.datos.producto()
-
-        result = [item[1] for item in consultasql]
-        id = [item[0] for item in consultasql]
-        datos=result
-  
-
-        # self.tipo2_label = CTkLabel(self.ventana,bg_color="green",text="Tipo Fruta:", text_color="white")
-        # self.tipo2_label.place(x=10, y=200)
-        # self.combo = CTkComboBox(self.ventana, bg_color="green",values=datos)
-        # self.combo.place(x=10, y=250)
-        self.mapa = {item[1]: item[0] for item in consultasql}  # {"fruta":1, "merma":2, "proteina":3}
-
-        self.combo = CTkComboBox(self.ventana, bg_color="green",
-                         values=list(self.mapa.keys()))
+        self.mapa = {item[1]: item[0] for item in consultasql} 
+         # {"fruta":1, "merma":2, "proteina":3}
+        self.combo = CTkComboBox(self.ventana, bg_color="green", values=list(self.mapa.keys()))
         self.combo.place(x=10, y=250)
 
-
-        self.kilos_entry = CTkEntry(self.ventana,bg_color="green", text_color="white",placeholder_text="Kilos")
+        self.kilos_entry = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Kilos")
         self.kilos_entry.place(x=10, y=330)
+        self.kilos_entry.focus()  # foco inicial aquí
 
-
-        self.precio_entry = CTkEntry(self.ventana,bg_color="green", text_color="white",placeholder_text="Precio")
+        self.precio_entry = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Precio")
         self.precio_entry.place(x=10, y=410)
 
+        self.btn_agregar = CTkButton(self.ventana, bg_color="green", text='Aceptar',
+                                 command=self.vender_fruta2, text_color="white")
+        self.btn_agregar.place(x=10, y=450)
 
-        
-        # self.fech_label = CTkLabel(self.ventana,bg_color="green", text="fecha", text_color="white")    
-        # self.fech_label.place(x=10, y=570) 
-        # self.fech_entry = CTkEntry(self.ventana,bg_color="green", text_color="white") 
-        # self.fech_entry.place(x=10, y=610)
-        # self.btn_fecha_auto = CTkButton(self.ventana,bg_color="green", text="Poner fecha automática", command=lambda:fecha_automatica())
-        # self.btn_fecha_auto.place(x=10, y=650)
-
-
-        self.ventana.bind("<Return>", lambda event: self.comprar_fruta2())
-        self.btn_agregar = CTkButton(self.ventana,bg_color="green", text='Aceptar', command=self.vender_fruta2, text_color="white")
-        self.btn_agregar.place(x=10,y=450)
-        pass
+        self.kilos_entry.bind("<Return>", lambda e: self.precio_entry.focus())
+        self.precio_entry.bind("<Return>", lambda e: self.vender_fruta2())
+       
 
 
 
@@ -623,43 +239,101 @@ class Interfaz(object):
         
         try:
             self.datos.vernder_fruta(id_producto,kilos,precio,fecha)
-            print(id_producto,kilos,precio,fecha)
+            print(id_producto,kilos,precio,fecha + "entró")
         except:
             print("error al ingresar compra fruta2")
             pass
         self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")
+        
+
+
+
+    def ingresar_insumo(self):
+        self.eliminar()
+
+
+
+        self.nom_ins = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Insumo")
+        self.nom_ins.place(x=10, y=330)
+        self.nom_ins.focus()  # foco inicial aquí
+
+        self.val_ins = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Valor")
+        self.val_ins.place(x=10, y=410)
+
+        self.btn_agregar = CTkButton(self.ventana, bg_color="green", text='Aceptar',
+                                 command=self.ingresar_insumo2, text_color="white")
+        self.btn_agregar.place(x=10, y=450)
+
+        self.nom_ins.bind("<Return>", lambda e: self.val_ins.focus())
+        self.val_ins.bind("<Return>", lambda e: self.ingresar_insumo2())
         pass
 
 
-#         texto = self.fech_entry.get().replace("/", " ").strip()
-#         partes = texto.split()
 
-#         if len(partes) == 3:
-#             dia, mes, anio = partes
-#             if len(dia) == 2 and len(mes) == 2 and len(anio) == 4:
-#                     try:
-#                         fecha = date(int(anio), int(mes), int(dia))
-#                         self.fech_entry.delete(0, "end")
-#                         self.fech_entry.insert(0, fecha.strftime("%Y-%m-%d"))
+    def ingresar_insumo2(self):
+        print("empezando introducción de datos a db")
 
-#                         print(self.fech_entry.insert(0, fecha.strftime("%Y-%m-%d"))
-# )
-#                     except ValueError:
-#                         pass  # evita error si los números no son válidos
+        fecha = date.today().strftime("%Y-%m-%d")
+        # self.fech_entry.delete(0, "end")
+        # self.fech_entry.insert(0, hoy)
+        insumo = self.nom_ins.get()
+        valor = self.val_ins.get()
+        
 
-            
-
-
-
-        # print(self.kilos_entry.get(),self.precio_entry.get())
-        # self.datos.compra_fruta(
-        #     1,
-        #     self.kilos_entry.get(),
-        #     self.precio_entry.get(),
-        #     self.fech_entry.get()
-        #     )
+        
+        try:
+            self.datos.ingresar_insumo(insumo,valor,fecha)
+            print(insumo,valor,fecha + "entró")
+            self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos ingresados correctamente")
+        except:
+            print("error al ingresar insumo")
+            self.msgok =  CTkMessagebox(self.ventana, title="Exito", message="datos no ingresados")
+            pass
+    
+    def registro_cambio(self):
+        self.eliminar()
 
 
 
+        self.moneda = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Moneda")
+        self.moneda.place(x=50, y=130)
+        self.moneda.focus()  # foco inicial aquí
 
+        self.billete = CTkEntry(self.ventana, bg_color="green", text_color="white", placeholder_text="Billetes")
+        self.billete.place(x=250, y=130)
+
+        self.btn_agregar = CTkButton(self.ventana, bg_color="green", text='Aceptar',
+                                 command=self.registro_cambio2, text_color="white")
+        self.btn_agregar.place(x=50, y=170)
+
+        self.moneda.bind("<Return>", lambda e: self.billete.focus())
+        self.billete.bind("<Return>", lambda e: self.registro_cambio2())
+        
+        pass
+    def registro_cambio2(self):
+        print("mostrando información moneda billetes")
+
+    # convertir los valores a enteros y formatear con comas
+        valor_moneda = f"{int(self.moneda.get()):,}"
+        valor_billete = f"{int(self.billete.get()):,}"
+
+        self.moneda_lbl = CTkLabel(
+            self.ventana,
+            anchor="center",
+            width=50,
+            height=50,
+            corner_radius=100,
+            text=f"MONEDAS\n{valor_moneda}"
+        )
+        self.moneda_lbl.place(x=70, y=30)
+
+        self.billete_lbl = CTkLabel(
+            self.ventana,
+            anchor="center",
+            width=50,
+            height=50,
+            corner_radius=100,
+            text=f"BILLETES\n{valor_billete}"
+        )
+        self.billete_lbl.place(x=270, y=30)
 Interfaz()
